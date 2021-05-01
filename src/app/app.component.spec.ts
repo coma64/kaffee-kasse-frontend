@@ -30,6 +30,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('kaffee-kasse-frontend app is running!');
+    expect(compiled.querySelector('header h1').textContent).toContain('kaffee-kasse-frontend');
   });
 });
