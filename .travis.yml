@@ -16,6 +16,11 @@ cache:
 install:
   - npm install
 
-script:
-  - npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
-  - npm run e2e
+jobs:
+  include:
+    - stage: Lint
+      script: npm run lint
+    - stage: Unittests
+      script: npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
+    - stage: e2e tests
+      script: npm run e2e
