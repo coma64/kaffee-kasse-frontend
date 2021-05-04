@@ -5,7 +5,19 @@ export class AppPage {
     return browser.get(browser.baseUrl);
   }
 
+  async clickAddCoffee(): Promise<void> {
+    element(by.id('add-coffee-button')).click();
+  }
+
+  async isAddCoffeeModalDisplayed(): Promise<boolean> {
+    return element(by.id('add-coffee-modal')).isDisplayed();
+  }
+
   async getTitleText(): Promise<string> {
-    return element(by.css('app-root header h1')).getText();
+    return element(by.css('app-root header .navbar-brand')).getText();
+  }
+
+  async getBrowserTitle(): Promise<string> {
+    return browser.getTitle();
   }
 }

@@ -8,9 +8,18 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', async () => {
+  it('should display the title', async () => {
     await page.navigateTo();
-    expect(await page.getTitleText()).toEqual('kaffee-kasse-frontend');
+
+    expect(await page.getTitleText()).toContain('Kaffee Kasse');
+    expect(await page.getBrowserTitle()).toContain('Kaffee Kasse');
+  });
+
+  it('should display a modal when the add coffee button is clicked', async () => {
+    await page.navigateTo();
+    await page.clickAddCoffee();
+
+    expect(await page.isAddCoffeeModalDisplayed());
   });
 
   afterEach(async () => {
