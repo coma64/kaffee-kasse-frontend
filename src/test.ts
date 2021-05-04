@@ -8,9 +8,10 @@ import {
 } from '@angular/platform-browser-dynamic/testing';
 
 declare const require: {
+  // eslint-disable-next-line no-unused-vars
   context(path: string, deep?: boolean, filter?: RegExp): {
     keys(): string[];
-    <T>(id: string): T;
+    <T>(id: string): T; // eslint-disable-line no-unused-vars
   };
 };
 
