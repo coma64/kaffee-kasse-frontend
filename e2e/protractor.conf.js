@@ -13,8 +13,12 @@ exports.config = {
     './src/**/*.e2e-spec.ts'
   ],
   capabilities: {
-    browserName: 'chrome'
+  chromeOptions: {
+    args: [ '--headless', '--no-sandbox' ],
+    binary: process.env.CHROME_BIN
   },
+  browserName: 'chrome'
+},
   directConnect: true,
   SELENIUM_PROMISE_MANAGER: false,
   baseUrl: 'http://localhost:4200/',
