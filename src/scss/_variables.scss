@@ -1,3 +1,109 @@
-$enable-gradients: true;
+// credits: https://alligator.io
+
+@use "sass:color";
+
+$enable-gradients: false;
 $enable-shadows: true;
 $enable-transitions: true;
+
+$transition-base: all 0.2s ease-in-out;
+
+$white: #fff;
+$gray-100: #f8f9fa;
+$gray-200: #ebebeb;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #888;
+$gray-700: #444;
+$gray-800: #303030;
+$gray-900: #222;
+$black: #000;
+
+$blue: #375a7f;
+$indigo: #6610f2;
+$purple: #6f42c1;
+$pink: #e84279;
+$red: #e74c3c;
+$orange: #fd7e14;
+$yellow: #ffea31;
+$green: #00f0b4;
+$teal: #23f5b6;
+$cyan: #3498db;
+
+$primary: $yellow;
+$secondary: $gray-700;
+$success: $teal;
+$info: $pink;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-500;
+$dark: $gray-800;
+
+// Body
+
+$body-bg: #222831;
+$body-bg2: #1a1f27;
+$body-color: $white;
+
+// Links
+
+$link-color: $pink;
+$link-decoration: none;
+
+$nav-link-disabled-color: $gray-600;
+$nav-link-color: $pink;
+$nav-tabs-link-active-color: $pink;
+$nav-link-hover-color: darken($pink, 3%);
+
+$nav-tabs-border-color: lighten($body-bg, 7%);
+$nav-tabs-link-active-border-color: lighten($body-bg, 7%);
+$nav-tabs-link-hover-border-color: lighten($body-bg, 7%);
+$nav-tabs-border-width: 2px;
+
+
+// Forms
+
+$box-shadow-inset: 7px 7px 5px rgba(0, 0, 0, 0.15);
+$input-focus-shadow: 7px 7px 5px rgba(126, 49, 88, 0.15);
+
+$input-border-color: $pink;
+$input-focus-border-color: $pink;
+$input-focus-bg: darken($body-bg, 2%);
+$input-btn-focus-box-shadow: $input-focus-shadow;
+
+$form-select-focus-box-shadow: $input-focus-shadow;
+
+$input-bg: $body-bg;
+$input-group-addon-color: $gray-500;
+$input-group-addon-bg: $body-bg2;
+$input-disabled-bg: $body-bg;
+
+$input-transition: $transition-base;
+
+$component-active-bg: $pink;
+$component-active-color: $white;
+
+$form-range-track-bg: darken($body-bg, 4%);
+$form-range-track-box-shadow: none;
+$form-range-thumb-active-bg: lighten($pink, 3%);
+
+// Containers
+
+$list-group-bg: $body-bg;
+$list-group-color: $white;
+$list-group-hover-bg: darken($body-bg, 2%);
+$list-group-action-hover-color: $white;
+
+// Badges
+
+$badge-color: $body-bg;
+
+// Toasts
+
+$toast-background-color: rgba($body-bg, .90);
+$toast-header-background-color: rgba($body-bg, .90);
+
+// Buttons
+
+$btn-box-shadow: none;

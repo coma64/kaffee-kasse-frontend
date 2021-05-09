@@ -1,0 +1,70 @@
+@use "sass:color";
+
+h1, h2, h3, h4, h5, h6 {
+  color: $primary;
+  display: flex;
+  font-weight: 300;
+
+  &::after {
+    content: " ";
+    background: linear-gradient(to right, $yellow, color.change($yellow, $alpha: 0.15));
+    height: 3px;
+    position: relative;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: auto;
+    margin: .8em 2px 0 3px;
+    flex-grow: 1;
+    border-radius: 2px;
+  }
+}
+
+.form-label {
+  @extend .form-label;
+
+  background-color: $body-bg;
+}
+
+.list-group-item {
+  &.active {
+    background-color: $body-bg;
+    border-color: $pink;
+  }
+}
+
+.card {
+  background-color: $body-bg !important;
+
+  &.bg-primary {
+    border-color: $primary;
+  }
+  &.bg-secondary {
+    border-color: $secondary;
+    border-width: 2px;
+  }
+  &.bg-success {
+    border-color: $success;
+  }
+  &.bg-danger {
+    border-color: $danger;
+  }
+  &.bg-warning {
+    border-color: $warning;
+  }
+  &.bg-info {
+    border-color: $info;
+  }
+  &.bg-light {
+    border-color: $light;
+  }
+  &.bg-dark {
+    border-color: $dark;
+    border-width: 2px;
+  }
+}
+
+.navbar {
+  background: linear-gradient(to right, #302e24, #28313e);
+}
