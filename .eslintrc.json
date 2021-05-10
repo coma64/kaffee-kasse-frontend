@@ -37,7 +37,7 @@
     },
     {
       "env": {
-        "node": true
+        "browser": true
       },
       "files": [
         "*.ts"
