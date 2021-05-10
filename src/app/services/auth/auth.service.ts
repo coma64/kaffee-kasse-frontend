@@ -56,6 +56,6 @@ export class AuthService {
     localStorage.removeItem('credentials');
     this.credentialsSubject.next(undefined);
 
-    // this.router.navigate(['/login']);
+    this.router.navigate(['/login']);
   }
 }

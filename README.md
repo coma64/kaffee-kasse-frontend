@@ -4,5 +4,5 @@
 
 ## Todo
 
-- theming from [alligator.io](https://alligator.io)
-- eslint, superlinter
+- e2e
+- routing tut

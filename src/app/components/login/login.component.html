@@ -1,0 +1,23 @@
+<div class="container h-100">
+  <form (ngSubmit)="login(username.value, password.value)" class="row h-100">
+    <div class="col-8 col-md-5 col-lg-4 align-self-center m-auto">
+      <h1 class="h3 mb-3 fw-normal">Login</h1>
+
+      <div class="form-floating w-100 mb-2 m-auto">
+        <input #username type="email" class="form-control" id="floatingInput" placeholder="Benutzername">
+        <label for="floatingInput">Benutzername</label>
+      </div>
+      <div class="form-floating w-100 mb-2 m-auto">
+        <input #password type="password" class="form-control" id="floatingPassword" placeholder="Passwort">
+        <label for="floatingPassword">Passwort</label>
+      </div>
+
+      <div *ngIf="!credentialsValid" class="text-danger mb-2">
+        Anmeldeinformationen ungültig
+      </div>
+
+      <button class="btn btn-lg btn-outline-primary w-100 mb-2" type="submit">Login</button>
+      <button routerLink="/register" class="btn btn-lg btn-outline-primary w-100" type="button">Registrieren</button>
+    </div>
+  </form>
+</div>

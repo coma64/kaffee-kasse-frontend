@@ -1,18 +1,1 @@
-<div class="container row m-auto">
-  <h1>kaffee kasse</h1>
-
-  <div class="d-flex">
-    <input #username type="text" class="form-control m-2" placeholder="Username" />
-    <input
-      #password
-      type="password"
-      class="form-control m-2"
-      placeholder="Password"
-    />
-  </div>
-  <div class="d-flex justify-content-evenly">
-    <button (click)="login(username.value, password.value)" class="btn btn-outline-primary m-2">Login</button>
-    <button (click)="logUser()" class="btn btn-outline-info m-2">Log creds</button>
-    <button (click)="logout()" class="btn btn-outline-danger m-2">Logout</button>
-  </div>
-</div>
+<router-outlet></router-outlet>
