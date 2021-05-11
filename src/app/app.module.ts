@@ -6,16 +6,18 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from '@components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { TokenAuthInterceptor } from '@interceptors/token-auth/token-auth.interceptor';
-import { NavbarComponent } from './services/components/navbar/navbar.component';
+import { DashboardComponent } from '@components/dashboard/dashboard.component';
+import { NavbarComponent } from '@components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
