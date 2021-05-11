@@ -13,7 +13,8 @@
         <a [class.active]="router.url == '/settings'" class="nav-link" routerLink="/settings"><i class="bi bi-gear"></i> Einstellungen</a>
       </div>
       <div>
-        <button *ngIf="authService.credentials !== undefined" (click)="authService.logout()" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right logout-icon"></i></button>
+        <p *ngIf="userService.currentUser !== undefined" routerLink="/settings" class="d-inline-block me-2 m-0 text-primary"><span><i class="bi bi-person icon"></i></span> {{ userService.currentUser?.username }}</p>
+        <button *ngIf="authService.credentials !== undefined" (click)="authService.logout()" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right icon"></i></button>
       </div>
     </div>
   </div>
