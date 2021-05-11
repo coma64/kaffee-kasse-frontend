@@ -6,3 +6,4 @@
 
 - e2e
 - routing tut
+- navbar not hiding
