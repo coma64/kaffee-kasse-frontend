@@ -8,3 +8,4 @@
 - routing tut
 - navbar not hiding
 - modal dismiss reset form
+- show errors in new purchase form
