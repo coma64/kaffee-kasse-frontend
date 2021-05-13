@@ -1,8 +1,43 @@
+<div class="modal fade" id="purchase-modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form (ngSubmit)="createPurchase(amount)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="purchase-modal-label">Getränk Hinzufügen</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body mb-2">
+            <div class="row justify-content-evenly">
+              <div class="col-6 col-sm-4">
+                <div class="input-group">
+                  <span class="input-group-text">Anzahl</span>
+                  <input #amount class="form-control" value="1" min="1" type="number">
+                </div>
+              </div>
+            </div>
+
+            <div class="row justify-content-between">
+              <div class="d-inline-block w-auto text-primary lead">Preis:</div>
+              <div class="d-inline-block w-auto fs-3 text-info">{{ amount.valueAsNumber * 1.00 | currency:'EUR'}}</div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Schließen</button>
+          <button (click)="createPurchase(amount)" type="submit" class="btn btn-outline-success" data-bs-dismiss="modal">Hinzufügen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 <div class="container mt-2">
   <div class="row">
     <h2>Guthaben</h2>
     <p *ngIf="currentProfile !== undefined" [ngClass]="{'text-danger': currentProfile.balance < 0.0, 'text-success': currentProfile.balance >= 0.0, 'giant-text': Math.abs(currentProfile.balance) < 1000, 'less-giant-text': Math.abs(currentProfile.balance) >= 1000}" class="giant-text w-100 lead align-self-center">{{ currentProfile.balance | currency:'EUR' }}</p>
   </div>
 
+  <div class="row">
+    <button data-bs-toggle="modal" data-bs-target="#purchase-modal" class="btn btn-outline-primary col-6 col-lg-4 m-auto">Getränk Hinzufügen</button>
   </div>
 </div>
