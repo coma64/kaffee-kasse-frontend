@@ -61,7 +61,6 @@ $nav-tabs-link-active-border-color: lighten($body-bg, 7%);
 $nav-tabs-link-hover-border-color: lighten($body-bg, 7%);
 $nav-tabs-border-width: 2px;
 
-
 // Forms
 
 $box-shadow-inset: 7px 7px 5px rgba(0, 0, 0, 0.15);
@@ -101,9 +100,14 @@ $badge-color: $body-bg;
 
 // Toasts
 
-$toast-background-color: rgba($body-bg, .90);
-$toast-header-background-color: rgba($body-bg, .90);
+$toast-background-color: rgba($body-bg, 0.9);
+$toast-header-background-color: rgba($body-bg, 0.9);
 
 // Buttons
 
 $btn-box-shadow: none;
+
+// Modals
+
+$modal-content-bg: $body-bg;
+$modal-header-border-color: darken($body-bg, 4%);
