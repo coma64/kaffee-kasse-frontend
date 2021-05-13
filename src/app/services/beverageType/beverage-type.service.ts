@@ -18,4 +18,8 @@ export class BeverageTypeService {
   getBeverageTypes(): Observable<BeverageType[]> {
     return this.http.get<BeverageType[]>(`${this.beverageTypesUrl}/`);
   }
+
+  getBeverageTypeUrl(beverageType: BeverageType): string {
+    return `${this.beverageTypesUrl}/${beverageType.id}/`
+  }
 }
