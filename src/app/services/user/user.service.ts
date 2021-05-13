@@ -37,6 +37,10 @@ export class UserService {
     return this.currentUserSubject.value;
   }
 
+  public get currsentUserUrl(): string | undefined {
+    return this.currentUser ? `${this.usersUrl}/${this.currentUser.id}/` : undefined;
+  }
+
   private loginHook(): void {
     this.getMe().subscribe(user => {
       this.currentUserSubject.next(user);
