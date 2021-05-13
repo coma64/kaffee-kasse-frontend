@@ -25,6 +25,10 @@ export class AuthService {
     return this.credentialsSubject.value;
   }
 
+  public get isLoggedIn(): boolean {
+    return this.credentials !== undefined;
+  }
+
   login(username: string, password: string): Observable<boolean> {
     return this.http
       .post<{ token?: string; non_field_errors?: string[], username?: string[], password?: string[] }>(
