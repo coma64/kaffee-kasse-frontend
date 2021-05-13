@@ -12,6 +12,7 @@ import { switchMap } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit {
   currentProfile?: Profile;
+  Math = Math;
 
   constructor(
     private userService: UserService,

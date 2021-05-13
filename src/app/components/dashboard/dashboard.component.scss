@@ -1,3 +1,14 @@
 .giant-text {
+  height: 124px;
   font-size: 4.5rem;
+}
+
+.less-giant-text {
+  font-size: 4.5rem;
+  height: 124px;
+
+  @media (max-width: 450px) {
+    height: 100px;
+    font-size: 4rem;
+  }
 }

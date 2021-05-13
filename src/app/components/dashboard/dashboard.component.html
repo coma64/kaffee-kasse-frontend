@@ -1,6 +1,8 @@
 <div class="container mt-2">
   <div class="row">
     <h2>Guthaben</h2>
-    <p *ngIf="currentProfile !== undefined" [ngClass]="currentProfile.balance < 0.0 ? 'text-danger' : 'text-success'" class="giant-text lead align-self-center">{{ currentProfile.balance | currency:'EUR' }}</p>
+    <p *ngIf="currentProfile !== undefined" [ngClass]="{'text-danger': currentProfile.balance < 0.0, 'text-success': currentProfile.balance >= 0.0, 'giant-text': Math.abs(currentProfile.balance) < 1000, 'less-giant-text': Math.abs(currentProfile.balance) >= 1000}" class="giant-text w-100 lead align-self-center">{{ currentProfile.balance | currency:'EUR' }}</p>
+  </div>
+
   </div>
 </div>
