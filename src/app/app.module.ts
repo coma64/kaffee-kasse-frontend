@@ -7,7 +7,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from '@components/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenAuthInterceptor } from '@interceptors/token-auth/token-auth.interceptor';
 import { DashboardComponent } from '@components/dashboard/dashboard.component';
 import { NavbarComponent } from '@components/navbar/navbar.component';
@@ -24,6 +24,7 @@ import { NavbarComponent } from '@components/navbar/navbar.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
