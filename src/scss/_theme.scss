@@ -4,14 +4,23 @@ body {
   height: 100vh;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: $primary;
   display: flex;
   font-weight: 300;
 
   &::after {
     content: " ";
-    background: linear-gradient(to right, $yellow, color.change($yellow, $alpha: 0.15));
+    background: linear-gradient(
+      to right,
+      $yellow,
+      color.change($yellow, $alpha: 0.15)
+    );
     height: 3px;
     position: relative;
     top: 0;
@@ -19,7 +28,7 @@ h1, h2, h3, h4, h5, h6 {
     bottom: 0;
     right: 0;
     width: auto;
-    margin: .8em 2px 0 3px;
+    margin: 0.8em 2px 0 3px;
     flex-grow: 1;
     border-radius: 2px;
   }
@@ -32,6 +41,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .list-group-item {
+  @extend .list-group-item;
+
   &.active {
     background-color: $body-bg;
     border-color: $pink;
@@ -71,4 +82,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .navbar {
   background: linear-gradient(to right, #302e24, #28313e);
+}
+
+.list-group {
+  @extend .list-group;
+
+  border: $list-group-border-color solid $list-group-border-width;
+  border-radius: $list-group-border-radius;
 }
