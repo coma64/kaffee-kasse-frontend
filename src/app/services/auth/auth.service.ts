@@ -31,16 +31,18 @@ export class AuthService {
 
   login(username: string, password: string): Observable<boolean> {
     return this.http
-      .post<{ token?: string; non_field_errors?: string[], username?: string[], password?: string[] }>(
-        '/api-token-auth/',
-        { username, password }
-      )
+      .post<{
+        token?: string;
+        non_field_errors?: string[];
+        username?: string[];
+        password?: string[];
+      }>('/api-token-auth/', { username, password })
       .pipe(
         map((response) => {
           if (response.token === undefined) return false;
 
           const credentials: Credentials = {
-            token: response.token
+            token: response.token,
           };
           localStorage.setItem('credentials', JSON.stringify(credentials));
           this.credentialsSubject.next(credentials);
@@ -48,15 +50,14 @@ export class AuthService {
           return true;
         }),
         catchError((error: HttpErrorResponse) => {
-          if (error.status === 400)
-            return of(false);
+          if (error.status === 400) return of(false);
 
           return throwError(error);
         })
       );
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('credentials');
     this.credentialsSubject.next(undefined);
 

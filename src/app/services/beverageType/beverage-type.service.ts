@@ -5,7 +5,7 @@ import { BeverageType } from '@models/beverage-type';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BeverageTypeService {
   private readonly beverageTypesUrl = `${environment.apiUrl}/beverage-types`;
@@ -13,14 +13,14 @@ export class BeverageTypeService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getBeverageTypes(): Observable<BeverageType[]> {
     return this.http.get<BeverageType[]>(`${this.beverageTypesUrl}/`);
   }
 
   getBeverageTypeUrl(beverageType: BeverageType): string {
-    return `${this.beverageTypesUrl}/${beverageType.id}/`
+    return `${this.beverageTypesUrl}/${beverageType.id}/`;
   }
 
   getBeverageTypeIdByUrl(url: string): number {

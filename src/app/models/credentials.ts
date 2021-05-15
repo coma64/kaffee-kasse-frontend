@@ -1,3 +1,3 @@
 export interface Credentials {
-    token: string;
+  token: string;
 }

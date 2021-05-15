@@ -19,7 +19,7 @@ import { RegisterComponent } from './components/register/register.component';
     LoginComponent,
     NavbarComponent,
     DashboardComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,12 +31,12 @@ import { RegisterComponent } from './components/register/register.component';
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TokenAuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: TokenAuthInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

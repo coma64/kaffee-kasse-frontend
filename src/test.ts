@@ -4,12 +4,16 @@ import 'zone.js/dist/zone-testing';
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 
 declare const require: {
   // eslint-disable-next-line no-unused-vars
-  context(path: string, deep?: boolean, filter?: RegExp): {
+  context(
+    path: string,
+    deep?: boolean,
+    filter?: RegExp
+  ): {
     keys(): string[];
     <T>(id: string): T; // eslint-disable-line no-unused-vars
   };

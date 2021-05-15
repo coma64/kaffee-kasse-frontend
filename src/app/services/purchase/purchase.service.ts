@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PurchaseService {
   private readonly purchasesUrl = `${environment.apiUrl}/purchases`;
@@ -15,22 +15,24 @@ export class PurchaseService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   createPurchase(purchase: Purchase): Observable<Purchase> {
-    return this.http.post<Purchase>(`${this.purchasesUrl}/`, purchase, this.httpOptions);
+    return this.http.post<Purchase>(
+      `${this.purchasesUrl}/`,
+      purchase,
+      this.httpOptions
+    );
   }
 
   getPurchases(user?: User): Observable<Purchase[]> {
     let url = '';
-    if (user !== undefined)
-      url = `${this.purchasesUrl}/?user=${user.id}`;
-    else
-      url = `${this.purchasesUrl}/`;
+    if (user !== undefined) url = `${this.purchasesUrl}/?user=${user.id}`;
+    else url = `${this.purchasesUrl}/`;
 
-    return this.http.get<Purchase[]>(url).pipe(
-      map(purchases => purchases.map(this.parseDate))
-    )
+    return this.http
+      .get<Purchase[]>(url)
+      .pipe(map((purchases) => purchases.map(this.parseDate)));
   }
 
   private parseDate(purchase: Purchase): Purchase {

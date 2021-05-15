@@ -22,15 +22,13 @@ export class UserService {
     if (localStorage.getItem('currentUser') !== null) {
       this.currentUserSubject.next(
         JSON.parse(localStorage.getItem('currentUser') as string)
-      )
+      );
     }
 
-    this.authService.credentials$.subscribe(credentials => {
-      if (credentials === undefined)
-        this.logoutHook();
-      else
-        this.loginHook();
-    })
+    this.authService.credentials$.subscribe((credentials) => {
+      if (credentials === undefined) this.logoutHook();
+      else this.loginHook();
+    });
   }
 
   public get currentUser(): User | undefined {
@@ -38,14 +36,16 @@ export class UserService {
   }
 
   public get currsentUserUrl(): string | undefined {
-    return this.currentUser ? `${this.usersUrl}/${this.currentUser.id}/` : undefined;
+    return this.currentUser
+      ? `${this.usersUrl}/${this.currentUser.id}/`
+      : undefined;
   }
 
   private loginHook(): void {
-    this.getMe().subscribe(user => {
+    this.getMe().subscribe((user) => {
       this.currentUserSubject.next(user);
       localStorage.setItem('currentUser', JSON.stringify(user));
-    })
+    });
   }
 
   private logoutHook(): void {
@@ -68,6 +68,5 @@ export class UserService {
     return user;
   }
 }
-
 
 // code service and component together -> first user list

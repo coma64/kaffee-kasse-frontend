@@ -24,8 +24,7 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     const credentials = this.authService.credentials;
-    if (credentials !== undefined)
-      return true;
+    if (credentials !== undefined) return true;
 
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;

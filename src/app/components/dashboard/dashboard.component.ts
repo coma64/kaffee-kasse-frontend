@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.refreshProfile().subscribe();
 
     this.beverageTypeService
@@ -82,7 +82,9 @@ export class DashboardComponent implements OnInit {
       filter((user) => user != undefined),
       switchMap(
         (user) =>
-          this.profileService.getProfile(user!.profile) as Observable<Profile>
+          this.profileService.getProfile(
+            user?.profile as string
+          ) as Observable<Profile>
       ),
       tap((profile) => (this.currentProfile = profile))
     );
