@@ -1,19 +1,56 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand text-primary" routerLink="/"><i class="bi bi-cup-fill"></i> Kaffee Kasse</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand text-primary" routerLink="/"
+      ><i class="bi bi-cup-fill"></i> Kaffee Kasse</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbar"
+      aria-controls="navbar"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbar">
       <div class="navbar-nav me-auto">
-        <a [class.active]="router.url == '/dashboard'" class="nav-link" routerLink="/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
-        <a [class.active]="router.url == '/users'" class="nav-link" routerLink="/users"><i class="bi bi-people"></i> Kameraden</a>
-        <a [class.active]="router.url == '/settings'" class="nav-link" routerLink="/settings"><i class="bi bi-gear"></i> Einstellungen</a>
+        <a
+          [class.active]="router.url == '/dashboard'"
+          class="nav-link"
+          routerLink="/dashboard"
+          ><i class="bi bi-speedometer2"></i> Dashboard</a
+        >
+        <a
+          [class.active]="router.url == '/users'"
+          class="nav-link"
+          routerLink="/users"
+          ><i class="bi bi-people"></i> Kameraden</a
+        >
+        <a
+          [class.active]="router.url == '/settings'"
+          class="nav-link"
+          routerLink="/settings"
+          ><i class="bi bi-gear"></i> Einstellungen</a
+        >
       </div>
-      <p *ngIf="userService.currentUser !== undefined" routerLink="/settings" class="ps-0 p-2 me-2 m-auto text-primary"><span><i class="bi bi-person icon"></i></span> {{ userService.currentUser?.username }}</p>
-      <button *ngIf="authService.credentials !== undefined" (click)="authService.logout()" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right icon"></i></button>
+      <p
+        *ngIf="userService.currentUser !== undefined"
+        routerLink="/settings"
+        class="ps-0 p-2 me-2 m-auto text-primary"
+      >
+        <span><i class="bi bi-person icon"></i></span>
+        {{ userService.currentUser?.username }}
+      </p>
+      <button
+        *ngIf="authService.credentials !== undefined"
+        (click)="authService.logout()"
+        class="btn btn-outline-danger"
+      >
+        <i class="bi bi-box-arrow-right icon"></i>
+      </button>
     </div>
   </div>
 </nav>

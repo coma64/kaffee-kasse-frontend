@@ -1,26 +1,60 @@
 <div class="container h-100">
-  <form #registerForm="ngForm" (ngSubmit)="register(registerForm)" class="row h-100">
+  <form
+    #registerForm="ngForm"
+    (ngSubmit)="register(registerForm)"
+    class="row h-100"
+  >
     <div class="col-8 col-md-5 col-lg-4 align-self-center m-auto">
       <h1 class="h3 mb-3 fw-normal">Registrieren</h1>
 
       <div class="form-floating w-100 mb-2 m-auto">
-        <input ngModel name="username" type="email" required minlength="1" class="form-control" id="floatingInput" placeholder="Benutzername">
+        <input
+          ngModel
+          name="username"
+          type="email"
+          required
+          minlength="1"
+          class="form-control"
+          id="floatingInput"
+          placeholder="Benutzername"
+        />
         <label for="floatingInput">Benutzername</label>
       </div>
       <div *ngIf="usernameErrors.length !== 0" class="text-danger">
-        <p *ngFor="let error of usernameErrors" class="text-danger mb-2">{{ error }}</p>
+        <p *ngFor="let error of usernameErrors" class="text-danger mb-2">
+          {{ error }}
+        </p>
       </div>
 
       <div class="form-floating w-100 mb-2 m-auto">
-        <input ngModel name="password" type="password" required minlength="8" class="form-control" id="floatingPassword" placeholder="Passwort">
+        <input
+          ngModel
+          name="password"
+          type="password"
+          required
+          minlength="8"
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Passwort"
+        />
         <label for="floatingPassword">Passwort</label>
       </div>
       <div *ngIf="passwordErrors.length !== 0" class="text-danger">
-        <p *ngFor="let error of passwordErrors" class="text-danger mb-2">{{ error }}</p>
+        <p *ngFor="let error of passwordErrors" class="text-danger mb-2">
+          {{ error }}
+        </p>
       </div>
 
-      <button class="btn btn-lg btn-outline-primary w-100 mb-2" type="submit">Registrieren</button>
-      <button routerLink="/login" class="btn btn-lg btn-outline-primary w-100" type="button">Login</button>
+      <button class="btn btn-lg btn-outline-primary w-100 mb-2" type="submit">
+        Registrieren
+      </button>
+      <button
+        routerLink="/login"
+        class="btn btn-lg btn-outline-primary w-100"
+        type="button"
+      >
+        Login
+      </button>
     </div>
   </form>
 </div>

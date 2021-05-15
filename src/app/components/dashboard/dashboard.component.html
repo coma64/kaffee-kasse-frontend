@@ -3,9 +3,7 @@
     <div class="modal-content">
       <form [formGroup]="purchaseForm" (ngSubmit)="createPurchase()">
         <div class="modal-header">
-          <h5 class="modal-title" id="purchase-modal-label">
-            Getränk Kaufen
-          </h5>
+          <h5 class="modal-title" id="purchase-modal-label">Getränk Kaufen</h5>
           <button
             type="button"
             class="btn-close"
@@ -30,16 +28,27 @@
               <div class="input-group">
                 <span class="input-group-text">Getränk</span>
                 <select formControlName="beverageType" class="form-select">
-                  <option *ngFor="let beverageType of beverageTypes" [ngValue]="beverageType">{{ beverageType.name }}</option>
+                  <option
+                    *ngFor="let beverageType of beverageTypes"
+                    [ngValue]="beverageType"
+                  >
+                    {{ beverageType.name }}
+                  </option>
                 </select>
               </div>
             </div>
           </div>
 
-          <div *ngIf="purchaseForm.value['beverageType'] != undefined" class="row justify-content-between">
+          <div
+            *ngIf="purchaseForm.value['beverageType'] != undefined"
+            class="row justify-content-between"
+          >
             <div class="d-inline-block w-auto text-primary fs-3">Preis:</div>
             <div class="d-inline-block w-auto fs-3 text-info lead">
-              {{ purchaseForm.value['amount'] * purchaseForm.value['beverageType'].price | currency: "EUR" }}
+              {{
+                purchaseForm.value["amount"] *
+                  purchaseForm.value["beverageType"].price | currency: "EUR"
+              }}
             </div>
           </div>
         </div>
@@ -87,7 +96,11 @@
       <button
         data-bs-toggle="modal"
         data-bs-target="#purchase-modal"
-        class="btn btn-outline-primary col-7 col-sm-5 col-md-4 col-lg-3 col-xl-2 m-auto"
+        class="
+          btn btn-outline-primary
+          col-7 col-sm-5 col-md-4 col-lg-3 col-xl-2
+          m-auto
+        "
       >
         Getränk Kaufen
       </button>
@@ -109,9 +122,13 @@
 
         <tbody *ngIf="beverageTypes.length !== 0 && purchases.length !== 0">
           <tr *ngFor="let purchase of purchases">
-            <td class="text-center">{{ getPurchaseBeverageType(purchase).name }}</td>
-            <td class="text-center">{{ purchase.date | date:'short' }}</td>
-            <td class="text-info text-center">{{ getPurchaseBeverageType(purchase).price | currency:'EUR' }}</td>
+            <td class="text-center">
+              {{ getPurchaseBeverageType(purchase).name }}
+            </td>
+            <td class="text-center">{{ purchase.date | date: "short" }}</td>
+            <td class="text-info text-center">
+              {{ getPurchaseBeverageType(purchase).price | currency: "EUR" }}
+            </td>
           </tr>
         </tbody>
       </table>

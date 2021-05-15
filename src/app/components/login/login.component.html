@@ -4,11 +4,27 @@
       <h1 class="h3 mb-3 fw-normal">Login</h1>
 
       <div class="form-floating w-100 mb-2 m-auto">
-        <input #username type="email" required minlength="1" class="form-control" id="floatingInput" placeholder="Benutzername">
+        <input
+          #username
+          type="email"
+          required
+          minlength="1"
+          class="form-control"
+          id="floatingInput"
+          placeholder="Benutzername"
+        />
         <label for="floatingInput">Benutzername</label>
       </div>
       <div class="form-floating w-100 mb-2 m-auto">
-        <input #password type="password" required minlength="8" class="form-control" id="floatingPassword" placeholder="Passwort">
+        <input
+          #password
+          type="password"
+          required
+          minlength="8"
+          class="form-control"
+          id="floatingPassword"
+          placeholder="Passwort"
+        />
         <label for="floatingPassword">Passwort</label>
       </div>
 
@@ -16,8 +32,16 @@
         Anmeldeinformationen ungültig
       </div>
 
-      <button class="btn btn-lg btn-outline-primary w-100 mb-2" type="submit">Login</button>
-      <button routerLink="/register" class="btn btn-lg btn-outline-primary w-100" type="button">Registrieren</button>
+      <button class="btn btn-lg btn-outline-primary w-100 mb-2" type="submit">
+        Login
+      </button>
+      <button
+        routerLink="/register"
+        class="btn btn-lg btn-outline-primary w-100"
+        type="button"
+      >
+        Registrieren
+      </button>
     </div>
   </form>
 </div>
