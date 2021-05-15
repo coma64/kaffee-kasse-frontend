@@ -22,4 +22,8 @@ export class BeverageTypeService {
   getBeverageTypeUrl(beverageType: BeverageType): string {
     return `${this.beverageTypesUrl}/${beverageType.id}/`
   }
+
+  getBeverageTypeIdByUrl(url: string): number {
+    return Number(url.slice(this.beverageTypesUrl.length + 1, -1));
+  }
 }
