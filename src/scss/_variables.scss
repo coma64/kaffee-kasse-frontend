@@ -45,6 +45,7 @@ $dark: $gray-800;
 $body-bg: #222831;
 $body-bg2: #1a1f27;
 $body-color: $white;
+$border-color: darken($body-bg, 4%);
 
 // Links
 
@@ -118,3 +119,6 @@ $list-group-border-color: darken($body-bg, 4%);
 $list-group-border-width: 1px;
 $list-group-border-radius: 0.25rem;
 
+// Tables
+
+$table-group-separator-color: darken($body-bg, 8%);
