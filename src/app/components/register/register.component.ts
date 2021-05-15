@@ -8,14 +8,17 @@ import { UserService } from '@services/user/user.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
   usernameErrors: string[] = [];
   passwordErrors: string[] = [];
 
-  /* eslint-disable no-unused-vars */
-  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   register(registerForm: NgForm): void {
     console.log(registerForm);
@@ -32,12 +35,14 @@ export class RegisterComponent {
       return;
 
     this.userService.createUser(registerForm.value as User).subscribe(
-      () => this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/login']),
+      () =>
+        this.router.navigate([
+          this.route.snapshot.queryParams['returnUrl'] || '/login',
+        ]),
       (error: HttpErrorResponse) => {
         if ('username' in error.error)
-          this.usernameErrors.push('Dieser Benutzername ist bereits vergeben')
-        else
-          throw error;
+          this.usernameErrors.push('Dieser Benutzername ist bereits vergeben');
+        else throw error;
       }
     );
   }
