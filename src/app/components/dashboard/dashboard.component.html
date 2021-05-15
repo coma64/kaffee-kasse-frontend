@@ -4,7 +4,7 @@
       <form [formGroup]="purchaseForm" (ngSubmit)="createPurchase()">
         <div class="modal-header">
           <h5 class="modal-title" id="purchase-modal-label">
-            Getränk Hinzufügen
+            Getränk Kaufen
           </h5>
           <button
             type="button"
@@ -57,7 +57,7 @@
             class="btn btn-outline-success"
             data-bs-dismiss="modal"
           >
-            Hinzufügen
+            Kaufen
           </button>
         </div>
       </form>
@@ -65,30 +65,56 @@
   </div>
 </div>
 
-<div class="container mt-2">
-  <div class="row">
-    <h2>Guthaben</h2>
-    <p
-      *ngIf="currentProfile !== undefined"
-      [ngClass]="{
-        'text-danger': currentProfile.balance < 0.0,
-        'text-success': currentProfile.balance >= 0.0,
-        'giant-text': Math.abs(currentProfile.balance) < 1000,
-        'less-giant-text': Math.abs(currentProfile.balance) >= 1000
-      }"
-      class="giant-text w-100 lead align-self-center"
-    >
-      {{ currentProfile.balance | currency: "EUR" }}
-    </p>
+<div class="container mt-2 h-100">
+  <div>
+    <h2 class="mb-0">Guthaben</h2>
+    <div class="row">
+      <p
+        *ngIf="currentProfile !== undefined"
+        [ngClass]="{
+          'text-danger': currentProfile.balance < 0.0,
+          'text-success': currentProfile.balance >= 0.0,
+          'giant-text': Math.abs(currentProfile.balance) < 1000,
+          'less-giant-text': Math.abs(currentProfile.balance) >= 1000
+        }"
+        class="mb-0 w-100 lead align-self-center"
+      >
+        {{ currentProfile.balance | currency: "EUR" }}
+      </p>
+    </div>
+
+    <div class="row mb-4">
+      <button
+        data-bs-toggle="modal"
+        data-bs-target="#purchase-modal"
+        class="btn btn-outline-primary col-7 col-sm-5 col-md-4 col-lg-3 col-xl-2 m-auto"
+      >
+        Getränk Kaufen
+      </button>
+    </div>
   </div>
 
-  <div class="row">
-    <button
-      data-bs-toggle="modal"
-      data-bs-target="#purchase-modal"
-      class="btn btn-outline-primary col-6 col-lg-4 m-auto"
-    >
-      Getränk Hinzufügen
-    </button>
+  <div>
+    <h2>Gekaufte Getränke</h2>
+
+    <div class="overflow-auto" style="height: 45vh">
+      <table class="table border rounded">
+        <thead>
+          <tr>
+            <th class="text-primary fw-normal text-center">Getränk</th>
+            <th class="text-primary fw-normal text-center">Datum</th>
+            <th class="text-primary fw-normal text-center">Preis</th>
+          </tr>
+        </thead>
+
+        <tbody *ngIf="beverageTypes.length !== 0 && purchases.length !== 0">
+          <tr *ngFor="let purchase of purchases">
+            <td class="text-center">{{ getPurchaseBeverageType(purchase).name }}</td>
+            <td class="text-center">{{ purchase.date | date:'short' }}</td>
+            <td class="text-info text-center">{{ getPurchaseBeverageType(purchase).price | currency:'EUR' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
