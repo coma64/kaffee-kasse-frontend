@@ -59,6 +59,10 @@ export class UserService {
       .pipe(map(this.parseUserDate));
   }
 
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(`${this.usersUrl}/`, user, this.httpOptions);
+  }
+
   private parseUserDate(user: User): User {
     user.date_joined = new Date(user.date_joined);
     return user;
