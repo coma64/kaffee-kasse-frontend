@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { environment } from '@environments/environment';
 import { BeverageType } from '@models/beverage-type';
 import { Profile } from '@models/profile';
 import { Purchase } from '@models/purchase';
@@ -10,7 +9,7 @@ import { BeverageTypeService } from '@services/beverageType/beverage-type.servic
 import { ProfileService } from '@services/profile/profile.service';
 import { PurchaseService } from '@services/purchase/purchase.service';
 import { UserService } from '@services/user/user.service';
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
 
 @Component({
@@ -68,7 +67,7 @@ export class DashboardComponent implements OnInit {
     forkJoin(purchases)
       .pipe(
         switchMap(() => this.refreshProfile()),
-        switchMap(() => this.refreshPurchases()),
+        switchMap(() => this.refreshPurchases())
       )
       .subscribe(() => {
         this.purchaseForm.setValue({
@@ -79,25 +78,28 @@ export class DashboardComponent implements OnInit {
   }
 
   private refreshProfile(): Observable<Profile> {
-    return this.userService.currentUser$
-      .pipe(
-        filter(user => user != undefined),
-        switchMap((user) => this.profileService.getProfile(user!.profile) as Observable<Profile>),
-        tap(profile => this.currentProfile = profile)
-      );
+    return this.userService.currentUser$.pipe(
+      filter((user) => user != undefined),
+      switchMap(
+        (user) =>
+          this.profileService.getProfile(user!.profile) as Observable<Profile>
+      ),
+      tap((profile) => (this.currentProfile = profile))
+    );
   }
 
   private refreshPurchases(): Observable<Purchase[]> {
-    return this.userService.currentUser$
-      .pipe(
-        filter(user => user != undefined),
-        switchMap((user) =>
-          this.purchaseService.getPurchases(user as User)),
-        tap(purchases => this.purchases = purchases)
-      );
+    return this.userService.currentUser$.pipe(
+      filter((user) => user != undefined),
+      switchMap((user) => this.purchaseService.getPurchases(user as User)),
+      tap((purchases) => (this.purchases = purchases))
+    );
   }
 
   getPurchaseBeverageType(purchase: Purchase): BeverageType {
-    return this.beverageTypes[this.beverageTypeService.getBeverageTypeIdByUrl(purchase.beverage_type) - 1]
+    return this.beverageTypes[
+      this.beverageTypeService.getBeverageTypeIdByUrl(purchase.beverage_type) -
+        1
+    ];
   }
 }
