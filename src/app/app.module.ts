@@ -11,13 +11,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TokenAuthInterceptor } from '@interceptors/token-auth/token-auth.interceptor';
 import { DashboardComponent } from '@components/dashboard/dashboard.component';
 import { NavbarComponent } from '@components/navbar/navbar.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NavbarComponent,
-    DashboardComponent
+    DashboardComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
