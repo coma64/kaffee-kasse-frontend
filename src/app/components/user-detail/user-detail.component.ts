@@ -61,9 +61,10 @@ export class UserDetailComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (!this.settingsForm?.valid || this.user == undefined) return;
+    if (this.settingsForm?.valid !== true || this.user == undefined) return;
 
-    if (this.password != undefined) this.user.password = this.password?.value;
+    if (this.password != undefined && this.password.value.length !== 0)
+      this.user.password = this.password?.value;
 
     this.userService.updateUser(this.user).subscribe((user) => {
       this.user = user;
@@ -77,5 +78,13 @@ export class UserDetailComponent implements OnInit {
 
   get passwordConfirm(): AbstractControl | undefined | null {
     return this.settingsForm?.get('passwordConfirm');
+  }
+
+  get hasUnsavedChanges(): boolean {
+    return (
+      this.settingsForm?.touched === true &&
+      this.password?.value.length !== 0 &&
+      this.passwordConfirm?.value.length !== 0
+    );
   }
 }

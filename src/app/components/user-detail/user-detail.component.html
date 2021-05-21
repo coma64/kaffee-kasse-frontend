@@ -37,14 +37,14 @@
 
     <small
       *ngIf="passwordConfirm?.hasError('passwordsMismatch') === true"
-      class="d-block mt-1 text-danger me-auto"
+      class="d-block mt-1 text-danger m-auto"
       >Die Passwörter stimmen nicht überein</small
     >
   </div>
 
   <div class="d-flex w-100 justify-content-center">
     <button
-      [disabled]="!settingsForm.touched"
+      [disabled]="!hasUnsavedChanges"
       type="submit"
       class="btn btn-outline-success m-auto"
     >
