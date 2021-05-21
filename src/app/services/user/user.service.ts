@@ -21,7 +21,9 @@ export class UserService {
   constructor(private http: HttpClient, private authService: AuthService) {
     if (localStorage.getItem('currentUser') !== null) {
       this.currentUserSubject.next(
-        JSON.parse(localStorage.getItem('currentUser') as string)
+        this.parseUser(
+          JSON.parse(localStorage.getItem('currentUser') as string)
+        )
       );
     }
 
@@ -56,25 +58,24 @@ export class UserService {
   getMe(): Observable<User> {
     return this.http
       .get<User>(`${this.usersUrl}/me/`)
-      .pipe(map(this.parseUserDate));
+      .pipe(map(this.parseUser));
   }
 
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.usersUrl}/`, user, this.httpOptions);
+    return this.http
+      .post<User>(`${this.usersUrl}/`, user, this.httpOptions)
+      .pipe(map(this.parseUser));
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.patch<User>(
-      `${this.usersUrl}/${user.id}/`,
-      user,
-      this.httpOptions
-    );
+    return this.http
+      .patch<User>(`${this.usersUrl}/${user.id}/`, user, this.httpOptions)
+      .pipe(map(this.parseUser));
   }
 
-  private parseUserDate(user: User): User {
+  private parseUser(user: User): User {
     user.date_joined = new Date(user.date_joined);
+    if (user.password === '') user.password = undefined;
     return user;
   }
 }
-
-// code service and component together -> first user list
