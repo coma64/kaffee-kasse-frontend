@@ -6,26 +6,24 @@
       <div class="form-floating w-100 mb-2 m-auto">
         <input
           #username
-          type="email"
+          type="text"
           required
           minlength="1"
           class="form-control"
-          id="floatingInput"
           placeholder="Benutzername"
         />
-        <label for="floatingInput">Benutzername</label>
+        <label>Benutzername</label>
       </div>
       <div class="form-floating w-100 mb-2 m-auto">
         <input
           #password
           type="password"
           required
-          minlength="8"
+          minlength="4"
           class="form-control"
-          id="floatingPassword"
           placeholder="Passwort"
         />
-        <label for="floatingPassword">Passwort</label>
+        <label>Passwort</label>
       </div>
 
       <div *ngIf="!credentialsValid" class="text-danger mb-2">
