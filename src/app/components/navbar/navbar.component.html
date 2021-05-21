@@ -15,30 +15,38 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbar">
+    <div #navbar class="collapse navbar-collapse" id="navbar">
       <div class="navbar-nav me-auto">
         <a
           [class.active]="router.url == '/dashboard'"
           class="nav-link"
           routerLink="/dashboard"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar"
           ><i class="bi bi-speedometer2"></i> Dashboard</a
         >
         <a
           [class.active]="router.url == '/users'"
           class="nav-link"
           routerLink="/users"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar"
           ><i class="bi bi-people"></i> Kameraden</a
         >
         <a
           [class.active]="router.url == '/settings'"
           class="nav-link"
           routerLink="/settings"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar"
           ><i class="bi bi-gear"></i> Einstellungen</a
         >
       </div>
       <p
         *ngIf="userService.currentUser !== undefined"
         routerLink="/settings"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbar"
         class="ps-0 p-2 me-2 m-auto text-primary"
       >
         <span><i class="bi bi-person icon"></i></span>
@@ -47,6 +55,8 @@
       <button
         *ngIf="authService.credentials !== undefined"
         (click)="authService.logout()"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbar"
         class="btn btn-outline-danger"
       >
         <i class="bi bi-box-arrow-right icon"></i>

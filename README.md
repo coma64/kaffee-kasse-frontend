@@ -6,7 +6,6 @@
 
 - e2e
 - routing tut
-- navbar not hiding
 - show errors in new purchase form
 - admin indicator
 - don't load all purchases at once on dashboard
