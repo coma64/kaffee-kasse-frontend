@@ -12,6 +12,7 @@ import { TokenAuthInterceptor } from '@interceptors/token-auth/token-auth.interc
 import { DashboardComponent } from '@components/dashboard/dashboard.component';
 import { NavbarComponent } from '@components/navbar/navbar.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { RegisterComponent } from './components/register/register.component';
     NavbarComponent,
     DashboardComponent,
     RegisterComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
