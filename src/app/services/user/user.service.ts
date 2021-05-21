@@ -63,6 +63,14 @@ export class UserService {
     return this.http.post<User>(`${this.usersUrl}/`, user, this.httpOptions);
   }
 
+  updateUser(user: User): Observable<User> {
+    return this.http.patch<User>(
+      `${this.usersUrl}/${user.id}/`,
+      user,
+      this.httpOptions
+    );
+  }
+
   private parseUserDate(user: User): User {
     user.date_joined = new Date(user.date_joined);
     return user;
