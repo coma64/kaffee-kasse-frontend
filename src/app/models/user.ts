@@ -4,4 +4,5 @@ export interface User {
   is_staff: boolean;
   date_joined: Date;
   profile: string;
+  password?: string;
 }
