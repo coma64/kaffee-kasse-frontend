@@ -9,3 +9,6 @@
 - navbar not hiding
 - show errors in new purchase form
 - admin indicator
+- don't load all purchases at once on dashboard
+- differentiate register from login button
+- publish branch 0f102bb...??
