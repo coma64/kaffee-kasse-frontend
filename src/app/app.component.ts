@@ -4,6 +4,7 @@ import { AuthService } from '@services/auth/auth.service';
 import { Collapse } from 'bootstrap';
 import * as dayjs from 'dayjs';
 import * as relativeTime from 'dayjs/plugin/relativeTime';
+import * as localizedFormat from 'dayjs/plugin/localizedFormat';
 import * as locale_de from 'dayjs/locale/de';
 
 @Component({
@@ -21,6 +22,8 @@ export class AppComponent implements OnInit {
     if (this.navbarTogglerElement) new Collapse(this.navbarTogglerElement);
 
     dayjs.extend(relativeTime);
+    dayjs.extend(localizedFormat);
+
     dayjs.locale(locale_de);
   }
 }
