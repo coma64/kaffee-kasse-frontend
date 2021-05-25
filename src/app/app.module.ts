@@ -15,6 +15,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { UsersComponent } from './components/users/users.component';
+import { DayjsFormatPipe } from './pipes/dayjsFormat/dayjs-format.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { UsersComponent } from './components/users/users.component';
     SettingsComponent,
     UserDetailComponent,
     UsersComponent,
+    DayjsFormatPipe,
   ],
   imports: [
     BrowserModule,

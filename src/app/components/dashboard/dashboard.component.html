@@ -140,7 +140,9 @@
             <td class="text-center">
               {{ getPurchaseBeverageType(purchase).name }}
             </td>
-            <td class="text-center">{{ purchase.date | date: "short" }}</td>
+            <td class="text-center">
+              {{ purchase.date | dayjsFormat: undefined:7 }}
+            </td>
             <td class="text-info text-center">
               {{ getPurchaseBeverageType(purchase).price | currency: "EUR" }}
             </td>
