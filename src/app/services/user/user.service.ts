@@ -73,6 +73,12 @@ export class UserService {
       .pipe(map(this.parseUser));
   }
 
+  getUsers(): Observable<User[]> {
+    return this.http
+      .get<User[]>(`${this.usersUrl}/`)
+      .pipe(map((users) => users.map(this.parseUser)));
+  }
+
   private parseUser(user: User): User {
     user.date_joined = new Date(user.date_joined);
     if (user.password === '') user.password = undefined;

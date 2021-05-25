@@ -14,6 +14,7 @@ import { NavbarComponent } from '@components/navbar/navbar.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { UsersComponent } from './components/users/users.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
     RegisterComponent,
     SettingsComponent,
     UserDetailComponent,
+    UsersComponent,
   ],
   imports: [
     BrowserModule,
