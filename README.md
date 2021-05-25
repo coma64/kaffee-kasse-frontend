@@ -11,3 +11,5 @@
 - don't load all purchases at once on dashboard
 - differentiate register from login button
 - publish branch 0f102bb...??
+- bind router links only to collapse if navbar is collapsed
+- split up dashboard component
