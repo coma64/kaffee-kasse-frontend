@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BeverageType } from '@models/beverage-type';
 import { Profile } from '@models/profile';
 import { Purchase } from '@models/purchase';
 import { User } from '@models/user';
-import { AuthService } from '@services/auth/auth.service';
 import { BeverageTypeService } from '@services/beverageType/beverage-type.service';
 import { ProfileService } from '@services/profile/profile.service';
 import { PurchaseService } from '@services/purchase/purchase.service';
@@ -17,14 +22,21 @@ import { filter, switchMap, tap } from 'rxjs/operators';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
+  @ViewChild('container') containerElement?: ElementRef;
+  @ViewChild('top') topElement?: ElementRef;
+  @ViewChild('purchaseListHeading') purchaseListHeadingElement?: ElementRef;
+  @ViewChild('purchaseList') purchaseListElement?: ElementRef;
+
   currentProfile?: Profile;
+  previousBalance = 0;
   beverageTypes: BeverageType[] = [];
   purchases: Purchase[] = [];
   purchaseForm = new FormGroup({
     beverageType: new FormControl(),
     amount: new FormControl(1),
   });
+  windowWidth?: number;
 
   Math = Math;
 
@@ -32,8 +44,7 @@ export class DashboardComponent implements OnInit {
     private userService: UserService,
     private profileService: ProfileService,
     private purchaseService: PurchaseService,
-    private beverageTypeService: BeverageTypeService,
-    private authService: AuthService
+    private beverageTypeService: BeverageTypeService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +55,31 @@ export class DashboardComponent implements OnInit {
       .subscribe((beverageTypes) => (this.beverageTypes = beverageTypes));
 
     this.refreshPurchases().subscribe();
+  }
+
+  ngAfterViewInit(): void {
+    this.onResize();
+  }
+
+  onResize(): void {
+    this.windowWidth = window.innerWidth;
+
+    const containerRect = (
+      this.containerElement?.nativeElement as HTMLDivElement
+    ).getBoundingClientRect();
+    const topRect = (
+      this.topElement?.nativeElement as HTMLDivElement
+    ).getBoundingClientRect();
+    const purchaseListHeadingRect = (
+      this.purchaseListHeadingElement?.nativeElement as HTMLDivElement
+    ).getBoundingClientRect();
+
+    // 2rem for margins
+    (
+      this.purchaseListElement?.nativeElement as HTMLDivElement
+    ).style.height = `calc(${
+      containerRect.height - topRect.height - purchaseListHeadingRect.height
+    }px - 2rem)`;
   }
 
   createPurchase(): void {

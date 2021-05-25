@@ -74,22 +74,25 @@
   </div>
 </div>
 
-<div class="container mt-2">
-  <div class="mb-4">
+<div (window:resize)="onResize()" #container class="container mt-2 h-100">
+  <div #top class="mb-2">
     <h2 class="mb-0">Guthaben</h2>
-    <div class="row">
-      <p
-        *ngIf="currentProfile !== undefined"
+    <div style="min-height: 108px" class="d-flex align-items-center">
+      <div
+        *ngIf="currentProfile != undefined && windowWidth != undefined"
         [ngClass]="{
           'text-danger': currentProfile.balance < 0.0,
           'text-success': currentProfile.balance >= 0.0,
-          'giant-text': Math.abs(currentProfile.balance) < 1000,
-          'less-giant-text': Math.abs(currentProfile.balance) >= 1000
+          'giant-text': !(
+            windowWidth <= 450 && Math.abs(currentProfile.balance) > 1000
+          ),
+          'less-giant-text':
+            windowWidth <= 450 && Math.abs(currentProfile.balance) > 1000
         }"
-        class="mb-0 w-100 lead align-self-center"
+        class="fw-light"
       >
         {{ currentProfile.balance | currency: "EUR" }}
-      </p>
+      </div>
     </div>
 
     <div class="row">
@@ -120,9 +123,9 @@
   </div>
 
   <div>
-    <h2>Gekaufte Getränke</h2>
+    <h2 #purchaseListHeading>Gekaufte Getränke</h2>
 
-    <div class="border rounded overflow-auto" style="height: 40vh">
+    <div #purchaseList class="border rounded overflow-auto">
       <table class="table rounded m-0">
         <thead>
           <tr>
