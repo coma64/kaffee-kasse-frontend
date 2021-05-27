@@ -16,6 +16,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { UsersComponent } from './components/users/users.component';
 import { DayjsFormatPipe } from './pipes/dayjsFormat/dayjs-format.pipe';
+import { BalanceHighlightDirective } from './directives/balance-highlight/balance-highlight.directive';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { DayjsFormatPipe } from './pipes/dayjsFormat/dayjs-format.pipe';
     UserDetailComponent,
     UsersComponent,
     DayjsFormatPipe,
+    BalanceHighlightDirective,
   ],
   imports: [
     BrowserModule,
