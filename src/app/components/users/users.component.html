@@ -1,17 +1,25 @@
-<div
-  #container
-  (window:resize)="onResize()"
-  class="container col-12 col-md-8 col-lg-6 mt-2 h-100"
->
+<div #container class="container col-12 col-md-8 col-lg-6 mt-2 h-100">
   <div #header>
     <h2 class="mb-2">Kameraden</h2>
 
-    <input type="text" class="form-control m-auto mb-4" placeholder="Suche" />
+    <input
+      #searchInput
+      (input)="search(searchInput.value)"
+      type="text"
+      class="form-control m-auto mb-3"
+      placeholder="Suche"
+    />
   </div>
 
   <ul #userList class="list-group overflow-auto">
-    <li *ngFor="let user of users | async" class="list-group-item">
-      {{ user.username }}
+    <li
+      *ngFor="let user of searchResults$ | async"
+      class="list-group-item d-flex justify-content-between"
+    >
+      <span>{{ user.username }}</span>
+      <span [class.text-success]="">{{
+        (getProfileByUrl(user.profile) | async)?.balance | currency: "EUR"
+      }}</span>
     </li>
   </ul>
 </div>

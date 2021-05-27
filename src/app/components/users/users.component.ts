@@ -2,12 +2,22 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  HostListener,
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { Profile } from '@models/profile';
 import { User } from '@models/user';
+import { ProfileService } from '@services/profile/profile.service';
 import { UserService } from '@services/user/user.service';
-import { Observable } from 'rxjs';
+import Fuse from 'fuse.js';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  ReplaySubject,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users',
@@ -15,35 +25,74 @@ import { Observable } from 'rxjs';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit, AfterViewInit {
-  @ViewChild('container') containerElement?: ElementRef;
-  @ViewChild('header') headerElement?: ElementRef;
-  @ViewChild('userList') userListElement?: ElementRef;
+  @ViewChild('container') private containerElement?: ElementRef<HTMLDivElement>;
+  @ViewChild('header') private headerElement?: ElementRef<HTMLDivElement>;
+  @ViewChild('userList') private userListElement?: ElementRef<HTMLUListElement>;
 
-  users?: Observable<User[]>;
+  searchResults$!: Observable<User[]>;
+  private searchTerms$ = new BehaviorSubject<string>('');
+  private profiles$ = new ReplaySubject<Profile[]>(1);
+  private readonly fuseOptions: Fuse.IFuseOptions<User> = {
+    threshold: 0.3,
+    keys: ['username'],
+  };
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private profileService: ProfileService
+  ) {}
 
   ngOnInit(): void {
-    this.users = this.userService.getUsers();
+    const search$ = this.userService.getUsers().pipe(
+      map((users) => {
+        return { fuse: new Fuse(users, this.fuseOptions), users };
+      })
+    );
+
+    this.searchResults$ = combineLatest([search$, this.searchTerms$]).pipe(
+      map(([search, searchTerm]) => {
+        if (searchTerm === '') return search.users;
+        else return search.fuse.search(searchTerm).map((result) => result.item);
+      })
+    );
+
+    this.profileService.getProfiles().subscribe(this.profiles$);
   }
 
   ngAfterViewInit(): void {
     this.onResize();
   }
 
-  onResize(): void {
-    const containerRect = (
-      this.containerElement?.nativeElement as HTMLDivElement
-    ).getBoundingClientRect();
-    const headerRect = (
-      this.headerElement?.nativeElement as HTMLDivElement
-    ).getBoundingClientRect();
+  search(searchTerm: string): void {
+    this.searchTerms$.next(searchTerm);
+  }
 
-    // 2rem for margins
-    (
-      this.userListElement?.nativeElement as HTMLDivElement
-    ).style.height = `calc(${
-      containerRect.height - headerRect.height
-    }px - 2rem)`;
+  getProfileByUrl(url: string): Observable<Profile | undefined> {
+    return this.profiles$.pipe(
+      map((profiles) => {
+        const id = this.profileService.getProfileIdByUrl(url);
+        return profiles.find((profile) => profile.id === id);
+      })
+    );
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    console.log('on resize');
+
+    if (
+      this.containerElement == undefined ||
+      this.headerElement == undefined ||
+      this.userListElement == undefined
+    )
+      return;
+    const containerRect =
+      this.containerElement.nativeElement.getBoundingClientRect();
+    const headerRect = this.headerElement.nativeElement.getBoundingClientRect();
+
+    // 25px margin
+    this.userListElement.nativeElement.style.height = `${
+      containerRect.height - headerRect.height - 25
+    }px`;
   }
 }
