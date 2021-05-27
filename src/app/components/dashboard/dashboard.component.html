@@ -80,9 +80,8 @@
     <div style="min-height: 108px" class="d-flex align-items-center">
       <div
         *ngIf="currentProfile != undefined && windowWidth != undefined"
+        [appBalanceHighlight]="currentProfile.balance"
         [ngClass]="{
-          'text-danger': currentProfile.balance < 0.0,
-          'text-success': currentProfile.balance >= 0.0,
           'giant-text': !(
             windowWidth <= 450 && Math.abs(currentProfile.balance) > 1000
           ),

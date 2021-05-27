@@ -17,9 +17,11 @@
       class="list-group-item d-flex justify-content-between"
     >
       <span>{{ user.username }}</span>
-      <span [class.text-success]="">{{
-        (getProfileByUrl(user.profile) | async)?.balance | currency: "EUR"
-      }}</span>
+      <span
+        *ngIf="getProfileByUrl(user.profile) | async as profile"
+        [appBalanceHighlight]="profile.balance"
+        >{{ profile.balance | currency: "EUR" }}
+      </span>
     </li>
   </ul>
 </div>
