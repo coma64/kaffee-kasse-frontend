@@ -31,4 +31,13 @@ export class ProfileService {
         })
       );
   }
+
+  getProfiles(): Observable<Profile[]> {
+    return this.http.get<Profile[]>(`${this.profilesUrl}/`);
+  }
+
+  getProfileIdByUrl(url: string): number | undefined {
+    const id = Number(url.slice(this.profilesUrl.length + 1, -1));
+    return isNaN(id) ? undefined : id;
+  }
 }
