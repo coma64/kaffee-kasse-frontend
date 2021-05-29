@@ -9,8 +9,12 @@ import * as locale_de from 'dayjs/locale/de';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  template: `
+    <app-navbar></app-navbar>
+    <main style="height: calc(100vh - 4.1rem)">
+      <router-outlet></router-outlet>
+    </main>
+  `,
 })
 export class AppComponent implements OnInit {
   title = 'kaffee-kasse-frontend';

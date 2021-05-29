@@ -12,7 +12,6 @@ import { UserService } from '@services/user/user.service';
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
-  styleUrls: ['./user-settings.component.scss'],
 })
 export class UserSettingsComponent implements OnInit {
   @Input() user?: User;

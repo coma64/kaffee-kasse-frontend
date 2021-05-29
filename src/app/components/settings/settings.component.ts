@@ -4,8 +4,11 @@ import { UserService } from '@services/user/user.service';
 
 @Component({
   selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss'],
+  template: `
+    <div class="container mt-2">
+      <app-user-settings [user]="currentUser"></app-user-settings>
+    </div>
+  `,
 })
 export class SettingsComponent implements OnInit {
   currentUser?: User;
