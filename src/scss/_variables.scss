@@ -85,7 +85,7 @@ $component-active-bg: $pink;
 $component-active-color: $white;
 
 $form-range-track-bg: darken($body-bg, 4%);
-$form-range-track-box-shadow: none;
+$form-range-track-box-shadow: 0px;
 $form-range-thumb-active-bg: lighten($pink, 3%);
 
 // Containers
@@ -106,7 +106,7 @@ $toast-header-background-color: rgba($body-bg, 0.9);
 
 // Buttons
 
-$btn-box-shadow: none;
+$btn-box-shadow: 0px;
 
 // Modals
 
