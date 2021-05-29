@@ -18,27 +18,24 @@
     <div #navbar class="collapse navbar-collapse" id="navbar">
       <div class="navbar-nav me-auto">
         <a
+          appCollapseableNavlink="#navbar"
           [class.active]="router.url == '/dashboard'"
           class="nav-link"
           routerLink="/dashboard"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbar"
           ><i class="bi bi-speedometer2"></i> Dashboard</a
         >
         <a
+          appCollapseableNavlink="#navbar"
           [class.active]="router.url == '/users'"
           class="nav-link"
           routerLink="/users"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbar"
           ><i class="bi bi-people"></i> Kameraden</a
         >
         <a
+          appCollapseableNavlink="#navbar"
           [class.active]="router.url == '/settings'"
           class="nav-link"
           routerLink="/settings"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbar"
           ><i class="bi bi-gear"></i> Einstellungen</a
         >
       </div>
@@ -47,8 +44,7 @@
         <p
           *ngIf="userService.currentUser !== undefined"
           routerLink="/settings"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbar"
+          appCollapseableNavlink="#navbar"
           class="w-auto mt-auto mb-auto me-2 mouse-pointer"
         >
           <i
