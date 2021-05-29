@@ -17,6 +17,7 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
 import { UsersComponent } from './components/users/users.component';
 import { DayjsFormatPipe } from './pipes/dayjsFormat/dayjs-format.pipe';
 import { BalanceHighlightDirective } from './directives/balance-highlight/balance-highlight.directive';
+import { CollapseableNavlinkDirective } from './directives/collapseable-navlink/collapseable-navlink.directive';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { BalanceHighlightDirective } from './directives/balance-highlight/balanc
     UsersComponent,
     DayjsFormatPipe,
     BalanceHighlightDirective,
+    CollapseableNavlinkDirective,
   ],
   imports: [
     BrowserModule,
