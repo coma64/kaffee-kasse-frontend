@@ -27,7 +27,8 @@
       "@models/*": ["app/models/*"],
       "@services/*": ["app/services/*"],
       "@environments/*": ["environments/*"]
-    }
+    },
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
