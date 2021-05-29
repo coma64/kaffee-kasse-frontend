@@ -14,7 +14,13 @@
   <ul #userList class="list-group overflow-auto">
     <li
       *ngFor="let user of searchResults$ | async"
-      class="list-group-item d-flex justify-content-between"
+      routerLink="/user/{{ user.id }}"
+      class="
+        clickable
+        list-group-item list-group-item-action
+        d-flex
+        justify-content-between
+      "
     >
       <span>{{ user.username }}</span>
       <span
