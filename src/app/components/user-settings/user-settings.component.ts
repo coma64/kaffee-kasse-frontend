@@ -10,11 +10,11 @@ import { User } from '@models/user';
 import { UserService } from '@services/user/user.service';
 
 @Component({
-  selector: 'app-user-detail',
-  templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.scss'],
+  selector: 'app-user-settings',
+  templateUrl: './user-settings.component.html',
+  styleUrls: ['./user-settings.component.scss'],
 })
-export class UserDetailComponent implements OnInit {
+export class UserSettingsComponent implements OnInit {
   @Input() user?: User;
   settingsForm?: FormGroup;
 

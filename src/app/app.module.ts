@@ -13,7 +13,7 @@ import { DashboardComponent } from '@components/dashboard/dashboard.component';
 import { NavbarComponent } from '@components/navbar/navbar.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { UserSettingsComponent } from './components/user-settings/user-settings.component';
 import { UsersComponent } from './components/users/users.component';
 import { DayjsFormatPipe } from './pipes/dayjsFormat/dayjs-format.pipe';
 import { BalanceHighlightDirective } from './directives/balance-highlight/balance-highlight.directive';
@@ -27,7 +27,7 @@ import { CollapseableNavlinkDirective } from './directives/collapseable-navlink/
     DashboardComponent,
     RegisterComponent,
     SettingsComponent,
-    UserDetailComponent,
+    UserSettingsComponent,
     UsersComponent,
     DayjsFormatPipe,
     BalanceHighlightDirective,
