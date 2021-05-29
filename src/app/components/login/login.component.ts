@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@services/auth/auth.service';
 
@@ -6,23 +12,47 @@ import { AuthService } from '@services/auth/auth.service';
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
-  public credentialsValid = true;
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
+  tryedSubmitting = false;
+  credentialsValid = true;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) {}
 
-  login(username: string, password: string): void {
-    this.authService.login(username, password).subscribe((credentialsValid) => {
-      this.credentialsValid = credentialsValid;
-      if (!credentialsValid) return;
-
-      this.router.navigate([
-        this.route.snapshot.queryParams['returnUrl'] || '/',
-      ]);
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
     });
+  }
+
+  get username(): AbstractControl {
+    return this.loginForm.get('username') as AbstractControl;
+  }
+
+  get password(): AbstractControl {
+    return this.loginForm.get('password') as AbstractControl;
+  }
+
+  onSubmit(): void {
+    this.tryedSubmitting = true;
+
+    if (!this.loginForm.touched || !this.loginForm.valid) return;
+
+    this.authService
+      .login(this.username.value, this.password.value)
+      .subscribe((credentialsValid) => {
+        this.credentialsValid = credentialsValid;
+        if (!credentialsValid) return;
+
+        this.router.navigate([
+          this.route.snapshot.queryParams['returnUrl'] || '/',
+        ]);
+      });
   }
 }

@@ -1,11 +1,11 @@
 <div class="container h-100">
-  <form (ngSubmit)="login(username.value, password.value)" class="row h-100">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="row h-100">
     <div class="col-8 col-md-5 col-lg-4 align-self-center m-auto">
       <h1 class="h3 mb-3 fw-normal">Login</h1>
 
       <div class="form-floating w-100 mb-2 m-auto">
         <input
-          #username
+          formControlName="username"
           type="text"
           required
           minlength="1"
@@ -13,10 +13,13 @@
           placeholder="Benutzername"
         />
         <label>Benutzername</label>
+        <small *ngIf="tryedSubmitting && !username.valid" class="text-danger"
+          >Bitte gib einen Benutzernamen ein</small
+        >
       </div>
       <div class="form-floating w-100 mb-2 m-auto">
         <input
-          #password
+          formControlName="password"
           type="password"
           required
           minlength="4"
@@ -24,9 +27,22 @@
           placeholder="Passwort"
         />
         <label>Passwort</label>
+        <small
+          *ngIf="tryedSubmitting && password.hasError('required')"
+          class="text-danger"
+          >Bitte gib ein Passwort ein</small
+        >
+        <small
+          *ngIf="tryedSubmitting && password.hasError('minlength')"
+          class="text-danger"
+          >Das Passwort muss mindestens 4 Zeichen lang sein</small
+        >
       </div>
 
-      <div *ngIf="!credentialsValid" class="text-danger mb-2">
+      <div
+        *ngIf="tryedSubmitting && !credentialsValid"
+        class="text-danger mb-2"
+      >
         Anmeldeinformationen ungültig
       </div>
 
