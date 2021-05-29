@@ -7,13 +7,14 @@
         <input
           formControlName="username"
           type="text"
-          required
-          minlength="1"
           class="form-control"
           placeholder="Benutzername"
         />
         <label>Benutzername</label>
-        <small *ngIf="tryedSubmitting && !username.valid" class="text-danger"
+
+        <small
+          *ngIf="tryedSubmitting && !username.valid"
+          class="d-block text-danger"
           >Bitte gib einen Benutzernamen ein</small
         >
       </div>
@@ -21,21 +22,21 @@
         <input
           formControlName="password"
           type="password"
-          required
-          minlength="4"
           class="form-control"
           placeholder="Passwort"
         />
         <label>Passwort</label>
+
         <small
           *ngIf="tryedSubmitting && password.hasError('required')"
-          class="text-danger"
+          class="d-block text-danger"
           >Bitte gib ein Passwort ein</small
         >
         <small
           *ngIf="tryedSubmitting && password.hasError('minlength')"
-          class="text-danger"
-          >Das Passwort muss mindestens 4 Zeichen lang sein</small
+          class="d-block text-danger"
+          >Das Passwort muss mindestens {{ passwordMinimumLength }} Zeichen lang
+          sein</small
         >
       </div>
 

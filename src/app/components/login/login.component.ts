@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   tryedSubmitting = false;
   credentialsValid = true;
 
+  passwordMinimumLength = environment.passwordMinimumLength;
+
   constructor(
     private authService: AuthService,
     private router: Router,
