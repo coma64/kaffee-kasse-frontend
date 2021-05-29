@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '@environments/environment';
 import { AuthService } from '@services/auth/auth.service';
 
 @Component({
@@ -27,7 +28,13 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(environment.passwordMinimumLength),
+        ],
+      ],
     });
   }
 

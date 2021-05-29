@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '@environments/environment';
 import { User } from '@models/user';
 import { UserService } from '@services/user/user.service';
 
@@ -12,6 +13,8 @@ import { UserService } from '@services/user/user.service';
 export class RegisterComponent {
   usernameErrors: string[] = [];
   passwordErrors: string[] = [];
+
+  passwordMinimumLength = environment.passwordMinimumLength;
 
   constructor(
     private userService: UserService,
@@ -28,7 +31,9 @@ export class RegisterComponent {
     if (registerForm.controls['username'].invalid)
       this.usernameErrors.push('Bitte gib einen Benutzernamen ein');
     if (registerForm.controls['password'].invalid)
-      this.passwordErrors.push('Password mindest länge: 8 Zeichen');
+      this.passwordErrors.push(
+        `Password mindest länge: ${environment.passwordMinimumLength} Zeichen`
+      );
 
     if (this.usernameErrors.length !== 0 || this.passwordErrors.length !== 0)
       return;

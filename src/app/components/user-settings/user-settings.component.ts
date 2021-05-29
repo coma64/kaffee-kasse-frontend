@@ -6,6 +6,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { environment } from '@environments/environment';
 import { User } from '@models/user';
 import { UserService } from '@services/user/user.service';
 
@@ -29,8 +30,14 @@ export class UserSettingsComponent implements OnInit {
   private initForm(): void {
     this.settingsForm = this.formBuilder.group(
       {
-        password: ['', [Validators.minLength(4)]],
-        passwordConfirm: ['', [Validators.minLength(4)]],
+        password: [
+          '',
+          [Validators.minLength(environment.passwordMinimumLength)],
+        ],
+        passwordConfirm: [
+          '',
+          [Validators.minLength(environment.passwordMinimumLength)],
+        ],
       },
       {
         validators: [this.passwordsMatch],
