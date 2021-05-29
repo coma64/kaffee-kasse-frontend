@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import * as dayjs from 'dayjs';
-import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs/esm';
+import { Dayjs } from 'dayjs/esm';
 
 @Pipe({
   name: 'dayjsFormat',

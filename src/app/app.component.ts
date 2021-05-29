@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '@services/auth/auth.service';
 import { Collapse } from 'bootstrap';
-import * as dayjs from 'dayjs';
-import * as relativeTime from 'dayjs/plugin/relativeTime';
-import * as localizedFormat from 'dayjs/plugin/localizedFormat';
-import * as locale_de from 'dayjs/locale/de';
+import dayjs from 'dayjs/esm';
+import relativeTime from 'dayjs/esm/plugin/relativeTime';
+import localizedFormat from 'dayjs/esm/plugin/localizedFormat';
+import locale_de from 'dayjs/esm/locale/de';
 
 @Component({
   selector: 'app-root',
