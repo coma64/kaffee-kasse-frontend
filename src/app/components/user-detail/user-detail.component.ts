@@ -8,7 +8,13 @@ import { BeverageTypeService } from '@services/beverageType/beverage-type.servic
 import { ProfileService } from '@services/profile/profile.service';
 import { PurchaseService } from '@services/purchase/purchase.service';
 import { UserService } from '@services/user/user.service';
-import { BehaviorSubject, forkJoin, Observable, OperatorFunction } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  OperatorFunction,
+  zip,
+} from 'rxjs';
 import { filter, map, mapTo, shareReplay, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -17,6 +23,7 @@ import { filter, map, mapTo, shareReplay, switchMap } from 'rxjs/operators';
   styleUrls: ['./user-detail.component.scss'],
 })
 export class UserDetailComponent implements OnInit {
+  userId$!: Observable<number>;
   user$!: Observable<User>;
   currentUser$!: Observable<User>;
   profile$!: Observable<Profile>;
@@ -30,6 +37,7 @@ export class UserDetailComponent implements OnInit {
     }[]
   >;
   pageHasLoaded$ = new BehaviorSubject<boolean>(false);
+  test$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private userService: UserService,
@@ -41,12 +49,17 @@ export class UserDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const idParameter = this.route.snapshot.paramMap.get('id');
-    const id = idParameter === null ? NaN : Number(idParameter);
+    this.userId$ = this.route.paramMap.pipe(
+      map((params) => parseInt(params.get('id') ?? ''))
+    );
 
-    if (isNaN(id)) this.router.navigate(['']);
+    this.userId$.subscribe((id) => isNaN(id) && this.router.navigate(['']));
 
-    const user$ = this.userService.getUser(id).pipe(shareReplay(1));
+    const user$ = this.userId$.pipe(
+      filter((id) => !isNaN(id)),
+      switchMap((id) => this.userService.getUser(id)),
+      shareReplay(1)
+    );
     user$.subscribe((user) => {
       if (user == undefined) this.router.navigate(['']);
     });
@@ -58,7 +71,11 @@ export class UserDetailComponent implements OnInit {
       >
     );
 
-    this.currentUser$ = this.userService.getMe().pipe(shareReplay(1));
+    // Depend on user$ to refresh everything on user change
+    this.currentUser$ = this.user$.pipe(
+      switchMap(() => this.userService.getMe()),
+      shareReplay(1)
+    );
 
     this.profile$ = this.user$.pipe(
       switchMap(
@@ -68,16 +85,18 @@ export class UserDetailComponent implements OnInit {
       shareReplay(1)
     );
 
-    this.beverageTypes$ = this.beverageTypeService
-      .getBeverageTypes()
-      .pipe(shareReplay(1));
+    // Depend on user$ to refresh everything on user change
+    this.beverageTypes$ = this.user$.pipe(
+      switchMap(() => this.beverageTypeService.getBeverageTypes()),
+      shareReplay(1)
+    );
 
     this.purchasesFromUser$ = this.user$.pipe(
       switchMap((user) => this.purchaseService.getPurchases(user)),
       shareReplay(1)
     );
 
-    this.wastedMoney$ = forkJoin([
+    this.wastedMoney$ = combineLatest([
       this.purchasesFromUser$,
       this.beverageTypes$,
     ]).pipe(
@@ -102,7 +121,7 @@ export class UserDetailComponent implements OnInit {
       shareReplay(1)
     );
 
-    this.purchasesByBeverageType$ = forkJoin([
+    this.purchasesByBeverageType$ = combineLatest([
       this.beverageTypes$,
       this.purchasesFromUser$,
     ]).pipe(
@@ -126,15 +145,15 @@ export class UserDetailComponent implements OnInit {
       )
     );
 
-    forkJoin([
+    zip(
       this.user$,
       this.currentUser$,
       this.profile$,
       this.beverageTypes$,
       this.purchasesFromUser$,
       this.wastedMoney$,
-      this.purchasesByBeverageType$,
-    ])
+      this.purchasesByBeverageType$
+    )
       .pipe(mapTo(true))
       .subscribe(this.pageHasLoaded$);
   }

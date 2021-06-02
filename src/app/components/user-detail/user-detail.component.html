@@ -1,5 +1,5 @@
 <div
-  *ngIf="pageHasLoaded$ | async; else loadingIndicator"
+  *ngIf="(pageHasLoaded$ | async) === true; else loadingIndicator"
   class="container mt-2"
 >
   <h2>
@@ -7,21 +7,21 @@
   </h2>
 
   <h4>Guthaben</h4>
-  <div class="mb-2 border rounded p-2">
-    <div class="d-flex justify-content-between">
-      <span class="lead text-info">aktuelles Guthaben:</span>
-      <span [appBalanceHighlight]="(profile$ | async)!.balance" class="lead">{{
+  <ul class="list-group mb-2">
+    <li class="list-group-item d-flex justify-content-between">
+      <span>aktuelles Guthaben:</span>
+      <span [appBalanceHighlight]="(profile$ | async)!.balance">{{
         (profile$ | async)!.balance | currency: "EUR"
       }}</span>
-    </div>
+    </li>
 
-    <div class="d-flex justify-content-between">
-      <span class="lead text-info">verschwendetes Geld:</span>
-      <span [appBalanceHighlight]="wastedMoney$ | async" class="lead">{{
+    <li class="list-group-item d-flex justify-content-between">
+      <span>verschwendetes Geld:</span>
+      <span [appBalanceHighlight]="wastedMoney$ | async">{{
         wastedMoney$ | async | currency: "EUR"
       }}</span>
-    </div>
-  </div>
+    </li>
+  </ul>
 
   <h4>Getränke Topliste</h4>
   <ul class="list-group overflow-auto" style="max-height: 187px">
