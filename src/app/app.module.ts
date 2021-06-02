@@ -19,6 +19,7 @@ import { DayjsFormatPipe } from './pipes/dayjsFormat/dayjs-format.pipe';
 import { BalanceHighlightDirective } from './directives/balance-highlight/balance-highlight.directive';
 import { CollapseableNavlinkDirective } from './directives/collapseable-navlink/collapseable-navlink.directive';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,6 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
@@ -47,6 +47,8 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    AdminModule,
+    AppRoutingModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenAuthInterceptor, multi: true },
