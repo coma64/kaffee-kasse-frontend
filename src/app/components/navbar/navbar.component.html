@@ -38,6 +38,14 @@
           routerLink="/settings"
           ><i class="bi bi-gear"></i> Einstellungen</a
         >
+        <a
+          appCollapseableNavlink="#navbar"
+          [class.active]="router.url == '/admin'"
+          [class.disabled]="userService.currentUser?.is_staff === false"
+          class="nav-link"
+          routerLink="/admin"
+          ><i class="bi bi-gear"></i> Admin</a
+        >
       </div>
 
       <div class="d-flex justify-content-between">
