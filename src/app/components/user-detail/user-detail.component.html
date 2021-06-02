@@ -1,0 +1,53 @@
+<div
+  *ngIf="pageHasLoaded$ | async; else loadingIndicator"
+  class="container mt-2"
+>
+  <h2>
+    Stats von <strong class="ms-1">{{ (user$ | async)!.username }}</strong>
+  </h2>
+
+  <h4>Guthaben</h4>
+  <div class="mb-2 border rounded p-2">
+    <div class="d-flex justify-content-between">
+      <span class="lead text-info">aktuelles Guthaben:</span>
+      <span [appBalanceHighlight]="(profile$ | async)!.balance" class="lead">{{
+        (profile$ | async)!.balance | currency: "EUR"
+      }}</span>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <span class="lead text-info">verschwendetes Geld:</span>
+      <span [appBalanceHighlight]="(wastedMoney$ | async) || 0" class="lead">{{
+        wastedMoney$ | async | currency: "EUR"
+      }}</span>
+    </div>
+  </div>
+
+  <h4>Getränke Topliste</h4>
+  <ul class="list-group overflow-auto" style="max-height: 187px">
+    <li
+      *ngFor="let beverage of purchasesByBeverageType$ | async; index as index"
+      [ngClass]="getBeverageClass(index)"
+      class="list-group-item d-flex justify-content-between"
+    >
+      <span>{{ beverage.beverageType.name }}</span>
+      <span class="text-info">{{ beverage.amount }}</span>
+    </li>
+  </ul>
+
+  <div class="d-flex justify-content-center mt-2">
+    <button
+      *ngIf="(currentUser$ | async)!.is_staff === true"
+      disabled
+      class="btn btn-outline-info"
+    >
+      Admin Einstellungen
+    </button>
+  </div>
+</div>
+
+<ng-template #loadingIndicator>
+  <div class="d-flex justify-content-center mt-2">
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+</ng-template>
