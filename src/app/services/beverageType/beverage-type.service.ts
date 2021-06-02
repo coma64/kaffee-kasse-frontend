@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { BeverageType } from '@models/beverage-type';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,9 @@ export class BeverageTypeService {
   constructor(private http: HttpClient) {}
 
   getBeverageTypes(): Observable<BeverageType[]> {
-    return this.http.get<BeverageType[]>(`${this.beverageTypesUrl}/`);
+    return this.http
+      .get<BeverageType[]>(`${this.beverageTypesUrl}/`)
+      .pipe(map((beverageTypes) => beverageTypes.map(this.parseBeverageType)));
   }
 
   getBeverageTypeUrl(beverageType: BeverageType): string {
@@ -25,5 +28,10 @@ export class BeverageTypeService {
 
   getBeverageTypeIdByUrl(url: string): number {
     return Number(url.slice(this.beverageTypesUrl.length + 1, -1));
+  }
+
+  private parseBeverageType(beverageType: BeverageType): BeverageType {
+    beverageType.price = parseFloat(beverageType.price as unknown as string);
+    return beverageType;
   }
 }
