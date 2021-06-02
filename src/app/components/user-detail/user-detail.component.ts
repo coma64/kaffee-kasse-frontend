@@ -37,7 +37,6 @@ export class UserDetailComponent implements OnInit {
     }[]
   >;
   pageHasLoaded$ = new BehaviorSubject<boolean>(false);
-  test$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private userService: UserService,
@@ -54,6 +53,7 @@ export class UserDetailComponent implements OnInit {
     );
 
     this.userId$.subscribe((id) => isNaN(id) && this.router.navigate(['']));
+    this.userId$.pipe(mapTo(false)).subscribe(this.pageHasLoaded$);
 
     const user$ = this.userId$.pipe(
       filter((id) => !isNaN(id)),
@@ -71,11 +71,7 @@ export class UserDetailComponent implements OnInit {
       >
     );
 
-    // Depend on user$ to refresh everything on user change
-    this.currentUser$ = this.user$.pipe(
-      switchMap(() => this.userService.getMe()),
-      shareReplay(1)
-    );
+    this.currentUser$ = this.userService.getMe().pipe(shareReplay(1));
 
     this.profile$ = this.user$.pipe(
       switchMap(
@@ -147,7 +143,7 @@ export class UserDetailComponent implements OnInit {
 
     zip(
       this.user$,
-      this.currentUser$,
+      this.user$.pipe(switchMap(() => this.currentUser$)),
       this.profile$,
       this.beverageTypes$,
       this.purchasesFromUser$,
