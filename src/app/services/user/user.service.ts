@@ -1,10 +1,14 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { User } from '@models/user';
 import { AuthService } from '@services/auth/auth.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -77,6 +81,19 @@ export class UserService {
     return this.http
       .get<User[]>(`${this.usersUrl}/`)
       .pipe(map((users) => users.map(this.parseUser)));
+  }
+
+  getUser(id: number | string): Observable<User | undefined> {
+    return this.http
+      .get<User>(typeof id === 'string' ? id : `${this.usersUrl}/${id}/`)
+      .pipe(
+        map(this.parseUser),
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 404) return of(undefined);
+
+          return throwError(error);
+        })
+      );
   }
 
   private parseUser(user: User): User {
