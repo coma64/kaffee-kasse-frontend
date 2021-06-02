@@ -78,8 +78,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   @HostListener('window:resize')
   onResize(): void {
-    console.log('on resize');
-
     if (
       this.containerElement == undefined ||
       this.headerElement == undefined ||
