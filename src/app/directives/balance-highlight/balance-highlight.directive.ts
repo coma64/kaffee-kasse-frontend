@@ -4,7 +4,7 @@ import { Directive, ElementRef, Input, OnChanges, OnInit } from '@angular/core';
   selector: '[appBalanceHighlight]',
 })
 export class BalanceHighlightDirective implements OnInit, OnChanges {
-  @Input() appBalanceHighlight!: number;
+  @Input() appBalanceHighlight: number | undefined | null;
 
   constructor(private element: ElementRef<HTMLElement>) {}
 
@@ -19,6 +19,8 @@ export class BalanceHighlightDirective implements OnInit, OnChanges {
   private setElementColor(): void {
     const classList = this.element.nativeElement.classList;
     const balance = this.appBalanceHighlight;
+
+    if (balance == undefined) return;
 
     if (balance >= 0.0 && !classList.contains('text-success'))
       classList.add('text-success');

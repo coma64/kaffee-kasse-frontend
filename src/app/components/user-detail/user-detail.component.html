@@ -17,7 +17,7 @@
 
     <div class="d-flex justify-content-between">
       <span class="lead text-info">verschwendetes Geld:</span>
-      <span [appBalanceHighlight]="(wastedMoney$ | async) || 0" class="lead">{{
+      <span [appBalanceHighlight]="wastedMoney$ | async" class="lead">{{
         wastedMoney$ | async | currency: "EUR"
       }}</span>
     </div>
