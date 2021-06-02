@@ -11,3 +11,6 @@
 - don't load all purchases at once on dashboard
 - split up dashboard component
 - /settings -> user-settings, /admin/user -> user-settings, /user/1 -> user-detail
+- properly handle not existing user (user service)
+- loading indicator directive
+- roles and aria
