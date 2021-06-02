@@ -43,7 +43,7 @@
       <div class="d-flex justify-content-between">
         <p
           *ngIf="userService.currentUser !== undefined"
-          routerLink="/settings"
+          routerLink="/user/{{ userService.currentUser.id }}"
           appCollapseableNavlink="#navbar"
           class="w-auto mt-auto mb-auto me-2 mouse-pointer"
         >
