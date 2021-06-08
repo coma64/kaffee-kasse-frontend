@@ -134,10 +134,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     );
   }
 
-  getPurchaseBeverageType(purchase: Purchase): BeverageType {
-    return this.beverageTypes[
-      this.beverageTypeService.getBeverageTypeIdByUrl(purchase.beverage_type) -
-        1
-    ];
+  getPurchaseBeverageType(purchase: Purchase): BeverageType | undefined {
+    const id = this.beverageTypeService.getBeverageTypeIdByUrl(
+      purchase.beverage_type
+    );
+    return this.beverageTypes.find((beverageType) => beverageType.id === id);
   }
 }

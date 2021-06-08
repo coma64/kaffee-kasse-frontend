@@ -137,13 +137,13 @@
         <tbody *ngIf="beverageTypes.length !== 0 && purchases.length !== 0">
           <tr *ngFor="let purchase of purchases">
             <td class="text-center">
-              {{ getPurchaseBeverageType(purchase).name }}
+              {{ getPurchaseBeverageType(purchase)?.name }}
             </td>
             <td class="text-center">
               {{ purchase.date | dayjsFormat: undefined:7 }}
             </td>
             <td class="text-info text-center">
-              {{ getPurchaseBeverageType(purchase).price | currency: "EUR" }}
+              {{ getPurchaseBeverageType(purchase)?.price | currency: "EUR" }}
             </td>
           </tr>
         </tbody>
