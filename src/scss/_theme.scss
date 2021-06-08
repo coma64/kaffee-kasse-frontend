@@ -90,3 +90,8 @@ h6 {
   border: $list-group-border-color solid $list-group-border-width;
   border-radius: $list-group-border-radius;
 }
+
+.input-group-append > .input-group-text {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
