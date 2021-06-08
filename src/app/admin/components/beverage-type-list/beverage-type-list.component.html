@@ -1,1 +1,130 @@
-<p>beverage-type-list works!</p>
+<div class="container mt-2">
+  <div class="border rounded p-2 mb-2" style="font-size: 1.05rem">
+    <i class="bi bi-info-square"></i>
+    Um Benutzer zu bearbeiten, Guthaben hinzuzufügen, usw. click auf den
+    <code>Admin Einstellungen</code> Button auf der Stats Seite.
+    <a routerLink="/users" class="">Benutzer Suche</a>
+  </div>
+
+  <h2>Getränke Einstellungen</h2>
+
+  <form
+    *ngIf="beverageTypesForm != undefined"
+    (ngSubmit)="onSubmit()"
+    class="border rounded"
+  >
+    <div
+      *ngFor="
+        let beverageTypeForm of beverageTypesFormControls;
+        let index = index
+      "
+      [formGroup]="beverageTypeForm"
+      [class.border-bottom]="index + 1 != beverageTypesForm.length"
+      class="row justify-content-evenly ms-1 me-1"
+    >
+      <div class="col-12 col-md-5 mt-2">
+        <div class="input-group">
+          <label
+            [class.border-touched]="beverageTypeForm.get('name')!.touched"
+            [class.border-should-be-deleted]="
+              beverageTypeForm.get('shouldBeDeleted')!.value
+            "
+            class="input-group-text col-4 col-md-5 col-lg-4 col-xl-3"
+            >Name</label
+          >
+
+          <input
+            [class.border-touched]="beverageTypeForm.get('name')!.touched"
+            [class.border-should-be-deleted]="
+              beverageTypeForm.get('shouldBeDeleted')!.value
+            "
+            formControlName="name"
+            type="text"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <div class="col-12 col-md-5 col-lg-6 mt-2">
+        <div class="input-group">
+          <label
+            [class.border-touched]="beverageTypeForm.get('price')!.touched"
+            [class.border-should-be-deleted]="
+              beverageTypeForm.get('shouldBeDeleted')!.value
+            "
+            class="input-group-text col-4 col-md-5 col-lg-4 col-xl-3"
+            >Preis</label
+          >
+
+          <input
+            [class.border-touched]="beverageTypeForm.get('price')!.touched"
+            [class.border-should-be-deleted]="
+              beverageTypeForm.get('shouldBeDeleted')!.value
+            "
+            formControlName="price"
+            type="number"
+            class="form-control"
+            step="0.01"
+            min="0"
+          />
+
+          <div class="input-group-append">
+            <span
+              [class.border-touched]="beverageTypeForm.get('price')!.touched"
+              [class.border-should-be-deleted]="
+                beverageTypeForm.get('shouldBeDeleted')!.value
+              "
+              class="input-group-text"
+              >€</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-1 mt-2 mb-2 m-auto w-auto">
+        <button
+          (click)="
+            beverageTypeForm
+              .get('shouldBeDeleted')!
+              .setValue(!beverageTypeForm.get('shouldBeDeleted')!.value)
+          "
+          [class.btn-outline-danger]="
+            !beverageTypeForm.get('shouldBeDeleted')!.value
+          "
+          [class.btn-outline-success]="
+            beverageTypeForm.get('shouldBeDeleted')!.value
+          "
+          type="button"
+          class="btn"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="container border-top">
+      <div class="row flex-wrap justify-content-evenly">
+        <button
+          type="submit"
+          class="btn btn-outline-success col-5 col-sm-4 col-md-3 col-lg-2 m-2"
+        >
+          Speichern
+        </button>
+        <button
+          (click)="onReset()"
+          type="button"
+          class="btn btn-outline-danger col-5 col-sm-4 col-md-3 col-lg-2 m-2"
+        >
+          Zurücksetzen
+        </button>
+        <button
+          (click)="addBeverageTypeForm()"
+          type="button"
+          class="btn btn-outline-primary col-5 col-sm-4 col-md-3 col-lg-2 m-2"
+        >
+          Hinzufügen
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
