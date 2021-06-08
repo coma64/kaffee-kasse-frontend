@@ -1,9 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { BeverageType } from '@models/beverage-type';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map, mapTo } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +24,35 @@ export class BeverageTypeService {
     return this.http
       .get<BeverageType[]>(`${this.beverageTypesUrl}/`)
       .pipe(map((beverageTypes) => beverageTypes.map(this.parseBeverageType)));
+  }
+
+  updateBeverageType(beverageType: BeverageType): Observable<BeverageType> {
+    return this.http
+      .patch<BeverageType>(
+        `${this.beverageTypesUrl}/${beverageType.id}/`,
+        beverageType,
+        this.httpOptions
+      )
+      .pipe(map(this.parseBeverageType));
+  }
+
+  createBeverageType(beverageType: BeverageType): Observable<BeverageType> {
+    return this.http
+      .post<BeverageType>(
+        `${this.beverageTypesUrl}/`,
+        beverageType,
+        this.httpOptions
+      )
+      .pipe(map(this.parseBeverageType));
+  }
+
+  deleteBeverageType(id: number): Observable<number | undefined> {
+    return this.http.delete(`${this.beverageTypesUrl}/${id}/`).pipe(
+      mapTo(id),
+      catchError((err: HttpErrorResponse) =>
+        err.status === 404 ? of(undefined) : throwError(err)
+      )
+    );
   }
 
   getBeverageTypeUrl(beverageType: BeverageType): string {
