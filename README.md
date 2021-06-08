@@ -14,3 +14,6 @@
 - properly handle not existing user (user service)
 - loading indicator directive
 - roles and aria
+- ng-container, ng-template
+- user list -> user detail animation
+- shorten beverage type list component names
