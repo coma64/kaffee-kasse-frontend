@@ -6,7 +6,7 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 
 @Injectable({
@@ -24,6 +24,7 @@ export class ProfileService {
     return this.http
       .get<Profile>(typeof id === 'string' ? id : `${this.profilesUrl}/${id}/`)
       .pipe(
+        map(this.parseProfile),
         catchError((error: HttpErrorResponse) => {
           if (error.status === 404) return of(undefined);
 
@@ -39,5 +40,10 @@ export class ProfileService {
   getProfileIdByUrl(url: string): number | undefined {
     const id = Number(url.slice(this.profilesUrl.length + 1, -1));
     return isNaN(id) ? undefined : id;
+  }
+
+  private parseProfile(profile: Profile): Profile {
+    profile.balance = parseFloat(profile.balance as unknown as string);
+    return profile;
   }
 }
