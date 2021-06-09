@@ -1,0 +1,131 @@
+<div class="container mt-2">
+  <form
+    *ngIf="settingsForm != undefined"
+    [formGroup]="settingsForm"
+    (ngSubmit)="onSubmit()"
+    class="w-100"
+  >
+    <h4 class="mb-2">Passwort ändern</h4>
+
+    <div
+      class="d-flex justify-content-evenly flex-wrap border rounded p-2 mb-2"
+    >
+      <div class="col-12 col-md-5">
+        <div class="input-group mb-2">
+          <label class="input-group-text col-4 col-md-5 col-lg-4 col-xl-3"
+            >Passwort</label
+          >
+
+          <input
+            autocomplete="new-password"
+            formControlName="password"
+            type="password"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <div class="col-12 col-md-5">
+        <div class="input-group">
+          <label class="input-group-text col-4 col-md-5 col-lg-4 col-xl-3"
+            >Bestätigen</label
+          >
+
+          <input
+            autocomplete="new-password"
+            formControlName="passwordConfirm"
+            type="password"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <small
+        *ngIf="passwordConfirm?.hasError('passwordsMismatch') === true"
+        class="d-block mt-1 text-danger m-auto"
+        >Die Passwörter stimmen nicht überein</small
+      >
+
+      <div class="d-flex w-100 justify-content-center mt-2">
+        <button
+          [disabled]="!hasUnsavedChanges"
+          type="submit"
+          class="btn btn-outline-success m-auto"
+        >
+          Speichern
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <h4>Guthaben hinzufügen oder abziehen</h4>
+
+  <form
+    *ngIf="profile != undefined && balanceForm != undefined"
+    [formGroup]="balanceForm"
+    class="border rounded p-2 mt-2"
+  >
+    <!-- altes guthaben, neues guthaben, hinzufügen, wegnehmen -->
+
+    <div class="row justify-content-evenly flex-wrap mb-2">
+      <div class="text-info fs-5 lead col-6 text-center">alt</div>
+
+      <div class="text-info fs-5 lead col-6 text-center">neu</div>
+
+      <div
+        [appBalanceHighlight]="profile.balance"
+        class="fs-1 lead col-6 p-auto w-auto m-auto"
+      >
+        {{ profile.balance | currency: "EUR" }}
+      </div>
+
+      <div
+        [appBalanceHighlight]="profile.balance + balanceChange"
+        class="fs-1 lead col-6 p-auto w-auto m-auto"
+      >
+        {{ profile.balance + balanceChange | currency: "EUR" }}
+      </div>
+    </div>
+
+    <div class="row justify-content-evenly flex-wrap">
+      <div class="col-12 col-md-4 mb-2">
+        <div class="input-group">
+          <label class="input-group-text"><i class="bi bi-plus"></i></label>
+          <input
+            (input)="onBalanceInput()"
+            formControlName="balanceAdd"
+            type="number"
+            class="form-control"
+            min="0"
+            step="0.01"
+          />
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4 mb-2">
+        <div class="input-group">
+          <label class="input-group-text"><i class="bi bi-dash"></i></label>
+          <input
+            (input)="onBalanceInput()"
+            formControlName="balanceReduce"
+            type="number"
+            class="form-control"
+            min="0"
+            step="0.01"
+          />
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <button
+          (click)="onBalanceSubmit()"
+          [disabled]="balanceChange === 0.0"
+          type="button"
+          class="btn btn-outline-success w-100"
+        >
+          Ändern
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
