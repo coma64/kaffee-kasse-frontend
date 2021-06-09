@@ -22,9 +22,14 @@ export class BalanceHighlightDirective implements OnInit, OnChanges {
 
     if (balance == undefined) return;
 
-    if (balance >= 0.0 && !classList.contains('text-success'))
+    if (balance >= 0.0 && !classList.contains('text-success')) {
+      if (classList.contains('text-danger')) classList.remove('text-danger');
+
       classList.add('text-success');
-    else if (balance < 0.0 && !classList.contains('text-danger'))
+    } else if (balance < 0.0 && !classList.contains('text-danger')) {
+      if (classList.contains('text-success')) classList.remove('text-success');
+
       classList.add('text-danger');
+    }
   }
 }
