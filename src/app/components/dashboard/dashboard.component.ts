@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BeverageType } from '@models/beverage-type';
 import { Profile } from '@models/profile';
@@ -23,11 +17,6 @@ import { filter, switchMap, tap } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
-  @ViewChild('container') containerElement?: ElementRef;
-  @ViewChild('top') topElement?: ElementRef;
-  @ViewChild('purchaseListHeading') purchaseListHeadingElement?: ElementRef;
-  @ViewChild('purchaseList') purchaseListElement?: ElementRef;
-
   currentProfile?: Profile;
   previousBalance = 0;
   beverageTypes: BeverageType[] = [];
@@ -61,25 +50,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.onResize();
   }
 
-  onResize(): void {
+  @HostListener('window:resize')
+  private onResize(): void {
     this.windowWidth = window.innerWidth;
-
-    const containerRect = (
-      this.containerElement?.nativeElement as HTMLDivElement
-    ).getBoundingClientRect();
-    const topRect = (
-      this.topElement?.nativeElement as HTMLDivElement
-    ).getBoundingClientRect();
-    const purchaseListHeadingRect = (
-      this.purchaseListHeadingElement?.nativeElement as HTMLDivElement
-    ).getBoundingClientRect();
-
-    // 2rem for margins
-    (
-      this.purchaseListElement?.nativeElement as HTMLDivElement
-    ).style.height = `calc(${
-      containerRect.height - topRect.height - purchaseListHeadingRect.height
-    }px - 2rem)`;
   }
 
   createPurchase(): void {
