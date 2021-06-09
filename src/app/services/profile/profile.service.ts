@@ -37,6 +37,16 @@ export class ProfileService {
     return this.http.get<Profile[]>(`${this.profilesUrl}/`);
   }
 
+  addBalance(id: number, balanceAdd: number): Observable<Profile> {
+    return this.http
+      .patch<Profile>(
+        `${this.profilesUrl}/${id}/add-balance/`,
+        { balance: balanceAdd },
+        this.httpOptions
+      )
+      .pipe(map(this.parseProfile));
+  }
+
   getProfileIdByUrl(url: string): number | undefined {
     const id = Number(url.slice(this.profilesUrl.length + 1, -1));
     return isNaN(id) ? undefined : id;
