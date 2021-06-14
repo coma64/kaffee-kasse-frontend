@@ -77,9 +77,20 @@ export class UserService {
       .pipe(map(this.parseUser));
   }
 
-  getUsers(): Observable<User[]> {
+  getUsers(
+    order:
+      | 'username'
+      | '-username'
+      | 'date_joined'
+      | '-date_joined'
+      | 'purchases'
+      | '-purchases'
+      | undefined = undefined
+  ): Observable<User[]> {
     return this.http
-      .get<User[]>(`${this.usersUrl}/`)
+      .get<User[]>(
+        `${this.usersUrl}/${order != undefined ? `?order=${order}` : ''}`
+      )
       .pipe(map((users) => users.map(this.parseUser)));
   }
 
