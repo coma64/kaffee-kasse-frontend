@@ -17,3 +17,4 @@
 - ng-container, ng-template
 - user list -> user detail animation
 - shorten beverage type list component names
+- allow making someone staff
