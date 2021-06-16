@@ -1,7 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
+import { BeverageType } from '@models/beverage-type';
 import { Purchase } from '@models/purchase';
+import { PurchaseCount } from '@models/purchase-count';
+import { forkJoin, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import urlcat from 'urlcat';
 
 @Injectable({
@@ -35,6 +39,30 @@ export class PurchaseService {
       .pipe(map((purchases) => purchases.map(this.parsePurchase)));
   }
 
+  getCounts(
+    options: { userId?: number; order?: string } = {}
+  ): Observable<PurchaseCount[]> {
+    const url = urlcat(this.countsUrl, {
+      user: options?.userId,
+      order: options?.order,
+    });
+
+    return this.http.get<{ beverage_type: string; count: number }[]>(url).pipe(
+      switchMap((purchaseCounts) =>
+        forkJoin(
+          purchaseCounts.map((purchaseCount) =>
+            this.http.get<BeverageType>(purchaseCount.beverage_type).pipe(
+              map((beverageType) => {
+                return {
+                  beverageType: beverageType,
+                  count: purchaseCount.count,
+                };
+              })
+            )
+          )
+        )
+      )
+    );
   }
 
   private parsePurchase(purchase: Purchase): Purchase {
