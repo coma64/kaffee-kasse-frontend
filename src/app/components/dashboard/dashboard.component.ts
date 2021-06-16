@@ -8,8 +8,8 @@ import { BeverageTypeService } from '@services/beverageType/beverage-type.servic
 import { ProfileService } from '@services/profile/profile.service';
 import { PurchaseService } from '@services/purchase/purchase.service';
 import { UserService } from '@services/user/user.service';
-import { forkJoin, Observable } from 'rxjs';
-import { filter, switchMap, tap } from 'rxjs/operators';
+import { forkJoin, Observable, OperatorFunction } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +17,8 @@ import { filter, switchMap, tap } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
+  private readonly topUsersCount = 5;
+
   currentProfile?: Profile;
   previousBalance = 0;
   beverageTypes: BeverageType[] = [];
@@ -26,6 +28,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     amount: new FormControl(1),
   });
   windowWidth?: number;
+  topUsers?: User[];
 
   Math = Math;
 
@@ -44,6 +47,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       .subscribe((beverageTypes) => (this.beverageTypes = beverageTypes));
 
     this.refreshPurchases().subscribe();
+
+    this.refreshTopUsers().subscribe();
+  }
+
+  private refreshTopUsers(): Observable<User[]> {
+    return this.userService.getUsers('-purchases').pipe(
+      map((users) => users.slice(0, this.topUsersCount)),
+      tap((users) => (this.topUsers = users))
+    );
   }
 
   ngAfterViewInit(): void {
@@ -65,7 +77,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       return;
 
     const purchases = [...Array(this.purchaseForm.value['amount'])].map(() =>
-      this.purchaseService.createPurchase({
+      this.purchaseService.create({
         user: this.userService.currsentUserUrl,
         beverage_type: this.beverageTypeService.getBeverageTypeUrl(
           this.purchaseForm.value['beverageType']
@@ -76,7 +88,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     forkJoin(purchases)
       .pipe(
         switchMap(() => this.refreshProfile()),
-        switchMap(() => this.refreshPurchases())
+        switchMap(() => this.refreshPurchases()),
+        switchMap(() => this.refreshTopUsers())
       )
       .subscribe(() => {
         this.purchaseForm.setValue({
@@ -101,8 +114,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   private refreshPurchases(): Observable<Purchase[]> {
     return this.userService.currentUser$.pipe(
-      filter((user) => user != undefined),
-      switchMap((user) => this.purchaseService.getPurchases(user as User)),
+      filter((user) => user != undefined) as OperatorFunction<
+        User | undefined,
+        User
+      >,
+      switchMap((user) =>
+        this.purchaseService.getList({ userId: user.id, order: '-date' })
+      ),
       tap((purchases) => (this.purchases = purchases))
     );
   }

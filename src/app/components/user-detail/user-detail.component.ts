@@ -88,7 +88,7 @@ export class UserDetailComponent implements OnInit {
     );
 
     this.purchasesFromUser$ = this.user$.pipe(
-      switchMap((user) => this.purchaseService.getPurchases(user)),
+      switchMap((user) => this.purchaseService.getList({ userId: user.id })),
       shareReplay(1)
     );
 
