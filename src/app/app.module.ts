@@ -20,6 +20,7 @@ import { BalanceHighlightDirective } from './directives/balance-highlight/balanc
 import { CollapseableNavlinkDirective } from './directives/collapseable-navlink/collapseable-navlink.directive';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { AdminModule } from './admin/admin.module';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,9 @@ import { AdminModule } from './admin/admin.module';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'), // or import('./path-to-my-custom-echarts')
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
