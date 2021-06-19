@@ -21,6 +21,7 @@ import { CollapseableNavlinkDirective } from './directives/collapseable-navlink/
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { AdminModule } from './admin/admin.module';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { UserPurchaseHistoryComponent } from './components/user-purchase-history/user-purchase-history.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
     BalanceHighlightDirective,
     CollapseableNavlinkDirective,
     UserDetailComponent,
+    UserPurchaseHistoryComponent,
   ],
   imports: [
     BrowserModule,
