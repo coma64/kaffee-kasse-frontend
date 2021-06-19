@@ -17,7 +17,7 @@ import { filter, map, switchMap, tap } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
-  private readonly topUsersCount = 5;
+  private readonly topUsersCount = 10;
 
   currentProfile?: Profile;
   previousBalance = 0;
