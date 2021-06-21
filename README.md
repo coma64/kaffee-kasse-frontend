@@ -18,3 +18,4 @@
 - user list -> user detail animation
 - shorten beverage type list component names
 - allow making someone staff
+- log out deleted users
