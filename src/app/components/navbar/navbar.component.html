@@ -19,7 +19,7 @@
       <div class="navbar-nav me-auto">
         <a
           appCollapseableNavlink="#navbar"
-          [class.active]="router.url == '/dashboard'"
+          [class.active]="router.url.startsWith('/dashboard')"
           class="nav-link"
           routerLink="/dashboard"
           ><i class="bi bi-speedometer2"></i> Dashboard</a
@@ -40,7 +40,7 @@
         >
         <a
           appCollapseableNavlink="#navbar"
-          [class.active]="router.url == '/admin'"
+          [class.active]="router.url.startsWith('/admin')"
           [class.disabled]="userService.currentUser?.is_staff === false"
           class="nav-link"
           routerLink="/admin"
