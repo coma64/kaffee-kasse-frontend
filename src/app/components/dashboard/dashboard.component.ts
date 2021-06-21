@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BeverageType } from '@models/beverage-type';
 import { Profile } from '@models/profile';
 import { Purchase } from '@models/purchase';
 import { User } from '@models/user';
 import { BeverageTypeService } from '@services/beverageType/beverage-type.service';
+import { DashboardService } from '@services/dashboard/dashboard.service';
 import { ProfileService } from '@services/profile/profile.service';
 import { PurchaseService } from '@services/purchase/purchase.service';
 import { UserService } from '@services/user/user.service';
@@ -17,7 +19,7 @@ import { filter, map, switchMap, tap } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
-  private readonly topUsersCount = 10;
+  private readonly topUsersCount = 8;
 
   currentProfile?: Profile;
   previousBalance = 0;
@@ -28,7 +30,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     amount: new FormControl(1),
   });
   windowWidth?: number;
-  topUsers?: User[];
 
   Math = Math;
 
@@ -36,7 +37,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private profileService: ProfileService,
     private purchaseService: PurchaseService,
-    private beverageTypeService: BeverageTypeService
+    private beverageTypeService: BeverageTypeService,
+    private dashboardService: DashboardService,
+    public router: Router
   ) {}
 
   ngOnInit(): void {
@@ -48,14 +51,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     this.refreshPurchases().subscribe();
 
-    this.refreshTopUsers().subscribe();
+    this.refreshTopUsers().subscribe((users) =>
+      this.dashboardService.topUsers.next(users)
+    );
   }
 
   private refreshTopUsers(): Observable<User[]> {
-    return this.userService.getUsers('-purchases').pipe(
-      map((users) => users.slice(0, this.topUsersCount)),
-      tap((users) => (this.topUsers = users))
-    );
+    return this.userService
+      .getUsers('-purchases')
+      .pipe(map((users) => users.slice(0, this.topUsersCount)));
   }
 
   ngAfterViewInit(): void {
@@ -91,7 +95,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         switchMap(() => this.refreshPurchases()),
         switchMap(() => this.refreshTopUsers())
       )
-      .subscribe(() => {
+      .subscribe((topUsers) => {
+        this.dashboardService.topUsers.next(topUsers);
+
         this.purchaseForm.setValue({
           amount: 1,
           beverageType: null,

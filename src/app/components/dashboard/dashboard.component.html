@@ -151,12 +151,27 @@
     </div>
   </div>
 
-  <div class="mt-2">
-    <h2>Top Kaffee Trinker</h2>
+  <div class="mt-2 mb-2">
+    <h2>Top Listen</h2>
 
-    <app-user-purchase-history
-      *ngIf="topUsers != undefined"
-      [users]="topUsers"
-    ></app-user-purchase-history>
+    <nav class="nav nav-tabs nav-justified">
+      <a
+        [class.active]="router.url.endsWith('/top-users')"
+        routerLink="top-users"
+        class="nav-link"
+        >Top Kameraden</a
+      >
+      <a
+        [class.active]="router.url.endsWith('/beverage-comparison')"
+        routerLink="beverage-comparison"
+        class="nav-link"
+        >Getränke Vergleich</a
+      >
+      <a class="nav-link disabled" disabled>Umsatz</a>
+    </nav>
+
+    <div class="mt-2">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

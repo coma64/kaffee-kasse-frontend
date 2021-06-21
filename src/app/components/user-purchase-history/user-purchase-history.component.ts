@@ -1,48 +1,50 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '@models/user';
 import { EChartsOption } from 'echarts';
 import dayjs, { Dayjs, OpUnitType } from 'dayjs/esm';
 import { forkJoin } from 'rxjs';
 import { PurchaseService } from '@services/purchase/purchase.service';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { DashboardService } from '@services/dashboard/dashboard.service';
 
 @Component({
   selector: 'app-user-purchase-history',
   templateUrl: './user-purchase-history.component.html',
 })
-export class UserPurchaseHistoryComponent implements OnInit, OnChanges {
-  @Input() users!: User[];
-  @Input() timePointCount = 27;
-  @Input() timePointDistance: OpUnitType = 'day';
+export class UserPurchaseHistoryComponent implements OnInit {
+  private readonly timePointCount = 27;
+  private readonly timePointDistance: OpUnitType = 'day';
   chartOptions?: EChartsOption;
 
   private readonly colors = [
     '#ff4683',
     '#6344ff',
+    '#c044ff',
     '#ff6344',
-    '#ff4482',
+    '#82ff44',
     '#4482ff',
     '#ff44df',
-    '#c044ff',
+    '#44ff63',
   ];
 
-  constructor(private purchaseService: PurchaseService) {}
+  constructor(
+    private purchaseService: PurchaseService,
+    private dashboardService: DashboardService
+  ) {}
 
   ngOnInit(): void {
-    this.initChart();
-  }
-
-  ngOnChanges(): void {
-    this.initChart();
-  }
-
-  private initChart(): void {
-    const userPurchases = forkJoin(
-      this.users.map((user) =>
-        this.purchaseService.getList({ userId: user.id, order: 'date' }).pipe(
-          map((purchases) => {
-            return { user, purchases };
-          })
+    const userPurchases = this.dashboardService.topUsers.pipe(
+      switchMap((users) =>
+        forkJoin(
+          users.map((user) =>
+            this.purchaseService
+              .getList({ userId: user.id, order: 'date' })
+              .pipe(
+                map((purchases) => {
+                  return { user, purchases };
+                })
+              )
+          )
         )
       )
     );
@@ -103,7 +105,7 @@ export class UserPurchaseHistoryComponent implements OnInit, OnChanges {
       dataZoom: [
         {
           type: 'slider',
-          start: 75,
+          start: 72.5,
           end: 100,
         },
       ],
