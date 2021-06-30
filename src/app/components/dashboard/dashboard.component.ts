@@ -12,6 +12,7 @@ import { PurchaseService } from '@services/purchase/purchase.service';
 import { UserService } from '@services/user/user.service';
 import { forkJoin, Observable, OperatorFunction } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
+import {PurchaseCount} from "@models/purchase-count";
 
 @Component({
   selector: 'app-dashboard',
@@ -54,6 +55,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.refreshTopUsers().subscribe((users) =>
       this.dashboardService.topUsers.next(users)
     );
+
+    this.refreshPurchaseCounts().subscribe(purchaseCounts => {
+      this.dashboardService.purchaseCounts.next(purchaseCounts);
+    });
+  }
+
+  private refreshPurchaseCounts(): Observable<PurchaseCount[]> {
+    return this.purchaseService.getCounts();
   }
 
   private refreshTopUsers(): Observable<User[]> {
@@ -63,7 +72,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.onResize();
+    this.onResize();this.refreshTopUsers()
   }
 
   @HostListener('window:resize')
@@ -93,10 +102,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       .pipe(
         switchMap(() => this.refreshProfile()),
         switchMap(() => this.refreshPurchases()),
-        switchMap(() => this.refreshTopUsers())
+        switchMap(() => forkJoin([this.refreshTopUsers(), this.refreshPurchaseCounts()]))
       )
       .subscribe((topUsers) => {
-        this.dashboardService.topUsers.next(topUsers);
+        this.dashboardService.topUsers.next(topUsers[0]);
+        this.dashboardService.purchaseCounts.next(topUsers[1]);
 
         this.purchaseForm.setValue({
           amount: 1,

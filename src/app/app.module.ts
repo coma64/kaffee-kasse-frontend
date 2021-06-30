@@ -22,6 +22,7 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
 import { AdminModule } from './admin/admin.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { UserPurchaseHistoryComponent } from './components/user-purchase-history/user-purchase-history.component';
+import { BeverageComparisonComponent } from './components/beverage-comparison/beverage-comparison.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { UserPurchaseHistoryComponent } from './components/user-purchase-history
     CollapseableNavlinkDirective,
     UserDetailComponent,
     UserPurchaseHistoryComponent,
+    BeverageComparisonComponent,
   ],
   imports: [
     BrowserModule,

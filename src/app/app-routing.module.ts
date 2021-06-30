@@ -8,6 +8,7 @@ import { UserDetailComponent } from '@components/user-detail/user-detail.compone
 import { UserPurchaseHistoryComponent } from '@components/user-purchase-history/user-purchase-history.component';
 import { UsersComponent } from '@components/users/users.component';
 import { AuthGuard } from '@guards/auth/auth.guard';
+import {BeverageComparisonComponent} from "@components/beverage-comparison/beverage-comparison.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -37,13 +38,17 @@ const routes: Routes = [
         component: UserPurchaseHistoryComponent,
       },
       {
+        path: 'beverage-comparison',
+        component: BeverageComparisonComponent,
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'top-users',
       },
     ],
   },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({
