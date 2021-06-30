@@ -141,6 +141,7 @@ export class AdminUserDetailComponent implements OnInit {
         this.profile.balance = this.profile.balance + balanceChange;
         this.balanceAdd.setValue(0);
         this.balanceReduce.setValue(0);
+        this.balanceChange = 0.0;
       });
   }
 

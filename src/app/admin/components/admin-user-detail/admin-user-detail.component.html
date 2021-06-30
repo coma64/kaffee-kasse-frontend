@@ -65,8 +65,6 @@
     [formGroup]="balanceForm"
     class="border rounded p-2 mt-2"
   >
-    <!-- altes guthaben, neues guthaben, hinzufügen, wegnehmen -->
-
     <div class="row justify-content-evenly flex-wrap mb-2">
       <div class="text-info fs-5 lead col-6 text-center">alt</div>
 
@@ -94,20 +92,6 @@
           <input
             (input)="onBalanceInput()"
             formControlName="balanceAdd"
-            type="number"
-            class="form-control"
-            min="0"
-            step="0.01"
-          />
-        </div>
-      </div>
-
-      <div class="col-12 col-md-4 mb-2">
-        <div class="input-group">
-          <label class="input-group-text"><i class="bi bi-dash"></i></label>
-          <input
-            (input)="onBalanceInput()"
-            formControlName="balanceReduce"
             type="number"
             class="form-control"
             min="0"
