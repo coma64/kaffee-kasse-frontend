@@ -38,7 +38,7 @@
   <div class="d-flex justify-content-center mt-2">
     <button
       *ngIf="(currentUser$ | async)!.is_staff === true"
-      routerLink="/admin/user/{{ (currentUser$ | async)!.id }}"
+      routerLink="/admin/user/{{ (user$ | async)!.id }}"
       class="btn btn-outline-info"
     >
       Admin Einstellungen
