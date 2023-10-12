@@ -2,6 +2,11 @@
 
 [![Build Status](https://www.travis-ci.com/coma64/kaffee-kasse-frontend.svg?branch=main)](https://www.travis-ci.com/coma64/kaffee-kasse-frontend)
 
+The frontend for a small site keeping that keeps track of debts caused by immense
+coffee consumption, using angular
+
+[Corresponding backend](https://github.com/coma64/kaffee-kasse-backend)
+
 ## Todo
 
 - e2e
